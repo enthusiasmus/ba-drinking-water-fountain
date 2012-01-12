@@ -63,10 +63,19 @@
 }
 
 - (void)viewDidLoad
-{
+{ 
     [super viewDidLoad];
     mapTypeBar.alpha = 0;	
     // Do any additional setup after loading the view, typically from a nib.
+    CLLocationCoordinate2D startLocation;
+    startLocation.latitude = 47.35371062;
+    startLocation.longitude = 13.09570313;
+    
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(startLocation, 25*METERS_PER_MILE, 25*METERS_PER_MILE);
+    
+    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
+    
+    [map setRegion:adjustedRegion animated:YES];
     
 }
 
@@ -79,15 +88,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = 47.80949;
-    zoomLocation.longitude = 13.05501;
-    
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 4*METERS_PER_MILE, 4*METERS_PER_MILE);
-    
-    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
-    
-    [map setRegion:adjustedRegion animated:YES];
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
