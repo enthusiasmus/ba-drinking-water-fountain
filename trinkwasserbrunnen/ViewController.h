@@ -31,6 +31,7 @@
 -(IBAction)showMapTypeBar;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
+-(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
                           
 @end

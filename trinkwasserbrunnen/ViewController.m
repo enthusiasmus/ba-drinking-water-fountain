@@ -52,41 +52,35 @@
 }
 
 - (IBAction)showUserLocation{
-    MKUserLocation *userLocation = map.userLocation;
-    if (!userLocation.location) {
+    if (!map.userLocation.location) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Ihre Position kann derzeit nicht gefunden werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
-        CLLocationCoordinate2D startLocation;
-        startLocation.latitude = 47.45966555;
-        startLocation.longitude = 13.12042236;
-        
-        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(startLocation, 4.5*METERS_PER_MILE, 47.5*METERS_PER_MILE);
-        
-        MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
-        
-        [map setRegion:adjustedRegion animated:YES];
-        //userPosition.enabled = false;
     } else {
-        map.centerCoordinate = userLocation.location.coordinate;
+        [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
     }
 }
 
+- (void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location{
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location, zoomLevel*METERS_PER_MILE, zoomLevel*METERS_PER_MILE);
+    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
+    [map setRegion:adjustedRegion animated:YES];
+}
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
+    [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
+}
+
 - (void)viewDidLoad
-{ 
+{    
     [super viewDidLoad];
     mapTypeBar.alpha = 0;	
-    // Do any additional setup after loading the view, typically from a nib.
-   
-    /*CLLocationCoordinate2D startLocation;
+
+    CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
     startLocation.longitude = 13.12042236;
+    [self zoomAndSetCenter: 47.5 andLocation: startLocation];
     
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(startLocation, 4.5*METERS_PER_MILE, 47.5*METERS_PER_MILE);
-    
-    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
-    
-    [map setRegion:adjustedRegion animated:YES];*/
-    
+    map.delegate = self;
 }
 
 - (void)viewDidUnload
