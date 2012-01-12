@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11A511" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+    <dependencies>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" id="N1R-5z-CJI">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="O9I-wg-1Wz">
+                                <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Standort" id="nZL-gL-Kvt">
+                                        <connections>
+                                            <action selector="showUserLocation" destination="2" id="eEj-gO-OI3"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem enabled="NO" title="Trinken" width="70" id="abH-wr-8qA"/>
+                                    <barButtonItem enabled="NO" title="Route" width="70" id="rZD-5i-b4s"/>
+                                    <barButtonItem title="Kartentyp" width="67" id="gko-J5-2Xg">
+                                        <connections>
+                                            <action selector="showMapTypeBar" destination="2" id="jXo-Iw-hHm"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Yur-VX-Xh6">
+                                <rect key="frame" x="0.0" y="372" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem title="Standard" width="95" id="jZS-v8-3ue">
+                                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="changeMapType:" destination="2" id="WiR-R2-xBK"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem tag="1" title="Satellite" width="96" id="mHO-4P-Ju7">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="changeMapType:" destination="2" id="ajt-Ve-OW1"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem tag="2" title="Hybrid" width="96" id="XNs-s2-xWq">
+                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="changeMapType:" destination="2" id="DRW-4k-ztg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="map" destination="N1R-5z-CJI" id="1fu-x3-2gJ"/>
+                        <outlet property="mapType" destination="gko-J5-2Xg" id="AXQ-pW-Pec"/>
+                        <outlet property="mapTypeBar" destination="Yur-VX-Xh6" id="8w7-Zy-6Ck"/>
+                        <outlet property="mapTypeHybrid" destination="XNs-s2-xWq" id="CPU-Kn-NbP"/>
+                        <outlet property="mapTypeSatellite" destination="mHO-4P-Ju7" id="ISB-l1-gY3"/>
+                        <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
+                        <outlet property="optionBar" destination="O9I-wg-1Wz" id="7yU-1j-JPh"/>
+                        <outlet property="userPosition" destination="nZL-gL-Kvt" id="lzA-5F-dTB"/>
+                    </connections>
+                </viewController>
+            </objects>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeMapType:"/>
+                <relationship kind="action" name="showMapTypeBar"/>
+                <relationship kind="action" name="showUserLocation"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapType" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="mapTypeHybrid" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="optionBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

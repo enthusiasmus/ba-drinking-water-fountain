@@ -1,0 +1,299 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11714A1E7EB00E6E619 /* UIKit.framework */; };
+		F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11914A1E7EB00E6E619 /* Foundation.framework */; };
+		F282C11C14A1E7EB00E6E619 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */; };
+		F282C12214A1E7EB00E6E619 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F282C12014A1E7EB00E6E619 /* InfoPlist.strings */; };
+		F282C12414A1E7EB00E6E619 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F282C12314A1E7EB00E6E619 /* main.m */; };
+		F282C12814A1E7EB00E6E619 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F282C12714A1E7EB00E6E619 /* AppDelegate.m */; };
+		F282C12B14A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F282C12914A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard */; };
+		F282C12E14A1E7EC00E6E619 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F282C12C14A1E7EB00E6E619 /* MainStoryboard_iPad.storyboard */; };
+		F282C13114A1E7EC00E6E619 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F282C13014A1E7EC00E6E619 /* ViewController.m */; };
+		F282C13814A1EB8C00E6E619 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C13714A1EB8C00E6E619 /* MapKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trinkwasserbrunnen.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F282C11714A1E7EB00E6E619 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		F282C11914A1E7EB00E6E619 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		F282C11F14A1E7EB00E6E619 /* Trinkwasserbrunnen-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Trinkwasserbrunnen-Info.plist"; sourceTree = "<group>"; };
+		F282C12114A1E7EB00E6E619 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		F282C12314A1E7EB00E6E619 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F282C12514A1E7EB00E6E619 /* Trinkwasserbrunnen-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Trinkwasserbrunnen-Prefix.pch"; sourceTree = "<group>"; };
+		F282C12614A1E7EB00E6E619 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F282C12714A1E7EB00E6E619 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F282C12A14A1E7EB00E6E619 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		F282C12D14A1E7EC00E6E619 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
+		F282C12F14A1E7EC00E6E619 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		F282C13014A1E7EC00E6E619 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		F282C13714A1EB8C00E6E619 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F282C11014A1E7EB00E6E619 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F282C13814A1EB8C00E6E619 /* MapKit.framework in Frameworks */,
+				F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */,
+				F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */,
+				F282C11C14A1E7EB00E6E619 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F282C10814A1E7EB00E6E619 = {
+			isa = PBXGroup;
+			children = (
+				F282C13714A1EB8C00E6E619 /* MapKit.framework */,
+				F282C11D14A1E7EB00E6E619 /* Trinkwasserbrunnen */,
+				F282C11614A1E7EB00E6E619 /* Frameworks */,
+				F282C11414A1E7EB00E6E619 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F282C11414A1E7EB00E6E619 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F282C11614A1E7EB00E6E619 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F282C11714A1E7EB00E6E619 /* UIKit.framework */,
+				F282C11914A1E7EB00E6E619 /* Foundation.framework */,
+				F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F282C11D14A1E7EB00E6E619 /* Trinkwasserbrunnen */ = {
+			isa = PBXGroup;
+			children = (
+				F282C12614A1E7EB00E6E619 /* AppDelegate.h */,
+				F282C12714A1E7EB00E6E619 /* AppDelegate.m */,
+				F282C12914A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard */,
+				F282C12C14A1E7EB00E6E619 /* MainStoryboard_iPad.storyboard */,
+				F282C12F14A1E7EC00E6E619 /* ViewController.h */,
+				F282C13014A1E7EC00E6E619 /* ViewController.m */,
+				F282C11E14A1E7EB00E6E619 /* Supporting Files */,
+			);
+			path = Trinkwasserbrunnen;
+			sourceTree = "<group>";
+		};
+		F282C11E14A1E7EB00E6E619 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F282C11F14A1E7EB00E6E619 /* Trinkwasserbrunnen-Info.plist */,
+				F282C12014A1E7EB00E6E619 /* InfoPlist.strings */,
+				F282C12314A1E7EB00E6E619 /* main.m */,
+				F282C12514A1E7EB00E6E619 /* Trinkwasserbrunnen-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F282C11214A1E7EB00E6E619 /* Trinkwasserbrunnen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F282C13414A1E7EC00E6E619 /* Build configuration list for PBXNativeTarget "Trinkwasserbrunnen" */;
+			buildPhases = (
+				F282C10F14A1E7EB00E6E619 /* Sources */,
+				F282C11014A1E7EB00E6E619 /* Frameworks */,
+				F282C11114A1E7EB00E6E619 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Trinkwasserbrunnen;
+			productName = Trinkwasserbrunnen;
+			productReference = F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F282C10A14A1E7EB00E6E619 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
+			buildConfigurationList = F282C10D14A1E7EB00E6E619 /* Build configuration list for PBXProject "Trinkwasserbrunnen" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = F282C10814A1E7EB00E6E619;
+			productRefGroup = F282C11414A1E7EB00E6E619 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F282C11214A1E7EB00E6E619 /* Trinkwasserbrunnen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F282C11114A1E7EB00E6E619 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F282C12214A1E7EB00E6E619 /* InfoPlist.strings in Resources */,
+				F282C12B14A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard in Resources */,
+				F282C12E14A1E7EC00E6E619 /* MainStoryboard_iPad.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F282C10F14A1E7EB00E6E619 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F282C12414A1E7EB00E6E619 /* main.m in Sources */,
+				F282C12814A1E7EB00E6E619 /* AppDelegate.m in Sources */,
+				F282C13114A1E7EC00E6E619 /* ViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F282C12014A1E7EB00E6E619 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F282C12114A1E7EB00E6E619 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		F282C12914A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F282C12A14A1E7EB00E6E619 /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		F282C12C14A1E7EB00E6E619 /* MainStoryboard_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F282C12D14A1E7EC00E6E619 /* en */,
+			);
+			name = MainStoryboard_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F282C13214A1E7EC00E6E619 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F282C13314A1E7EC00E6E619 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F282C13514A1E7EC00E6E619 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Trinkwasserbrunnen/Trinkwasserbrunnen-Prefix.pch";
+				INFOPLIST_FILE = "Trinkwasserbrunnen/Trinkwasserbrunnen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		F282C13614A1E7EC00E6E619 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Trinkwasserbrunnen/Trinkwasserbrunnen-Prefix.pch";
+				INFOPLIST_FILE = "Trinkwasserbrunnen/Trinkwasserbrunnen-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F282C10D14A1E7EB00E6E619 /* Build configuration list for PBXProject "Trinkwasserbrunnen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F282C13214A1E7EC00E6E619 /* Debug */,
+				F282C13314A1E7EC00E6E619 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F282C13414A1E7EC00E6E619 /* Build configuration list for PBXNativeTarget "Trinkwasserbrunnen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F282C13514A1E7EC00E6E619 /* Debug */,
+				F282C13614A1E7EC00E6E619 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F282C10A14A1E7EB00E6E619 /* Project object */;
+}
