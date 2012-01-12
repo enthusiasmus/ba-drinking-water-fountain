@@ -68,10 +68,10 @@
     mapTypeBar.alpha = 0;	
     // Do any additional setup after loading the view, typically from a nib.
     CLLocationCoordinate2D startLocation;
-    startLocation.latitude = 47.35371062;
-    startLocation.longitude = 13.09570313;
+    startLocation.latitude = 47.45966555;
+    startLocation.longitude = 13.12042236;
     
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(startLocation, 25*METERS_PER_MILE, 25*METERS_PER_MILE);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(startLocation, 4.5*METERS_PER_MILE, 47.5*METERS_PER_MILE);
     
     MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
     
