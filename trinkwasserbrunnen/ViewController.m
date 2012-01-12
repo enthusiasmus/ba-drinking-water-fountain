@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  trinkwasserbrunnen
+//  Trinkwasserbrunnen
 //
-//  Created by Mahmood1 on 1/12/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Mahmood1 on 12/21/11.
+//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -18,10 +18,56 @@
 
 #pragma mark - View lifecycle
 
+- (IBAction)showMapTypeBar{         
+    [UIToolbar animateWithDuration:0.2 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
+}
+
+- (IBAction)changeMapType:(id)sender{     
+    [self showMapTypeBar];
+
+    UIBarButtonItem *button = (UIBarButtonItem*)sender;
+    int index = (int)button.tag;
+    switch(index){
+        case 0:
+            map.mapType = MKMapTypeStandard;
+            [self setActiveMapButton:mapTypeStandard andInactiveButton1:mapTypeSatellite andInactiveButton2:mapTypeHybrid];
+            break;
+        case 1:
+            map.mapType = MKMapTypeSatellite;
+            [self setActiveMapButton:mapTypeSatellite andInactiveButton1:mapTypeStandard andInactiveButton2:mapTypeHybrid];
+            break;
+        case 2:
+            map.mapType = MKMapTypeHybrid;
+            [self setActiveMapButton:mapTypeHybrid andInactiveButton1:mapTypeStandard andInactiveButton2:mapTypeSatellite];
+            break;
+    }
+}
+
+-(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2
+{
+    activeButton.tintColor = [UIColor darkGrayColor];
+    inactiveButton1.tintColor = [UIColor lightGrayColor];
+    inactiveButton2.tintColor = [UIColor lightGrayColor];
+    
+}
+
+- (IBAction)showUserLocation{
+    MKUserLocation *userLocation = map.userLocation;
+    if (!userLocation.location) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Ihre Position kann derzeit nicht gefunden werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+		[alert show];
+        //userPosition.enabled = false;
+    } else {
+        map.centerCoordinate = userLocation.location.coordinate;
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    mapTypeBar.alpha = 0;	
+    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)viewDidUnload
@@ -33,7 +79,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = 47.80949;
+    zoomLocation.longitude = 13.05501;
+    
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 4*METERS_PER_MILE, 4*METERS_PER_MILE);
+    
+    MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
+    
+    [map setRegion:adjustedRegion animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -54,7 +108,11 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+    } else {
+        return YES;
+    }
 }
 
 @end
