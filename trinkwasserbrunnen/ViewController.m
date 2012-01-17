@@ -127,7 +127,7 @@
     //[name setText: [nameData objectForKey:@"Longitude";]];
    // [instrument set Text: [nameData objectForKey:@"Latitude"]];
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
-    NSString *L            ongitude = [nameData objectForKey:@"Longitude"];
+    NSString *Longitude = [nameData objectForKey:@"Longitude"];
     
     
     // Plist einlesen
