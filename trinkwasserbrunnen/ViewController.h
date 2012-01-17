@@ -26,6 +26,9 @@
     
     IBOutlet UIToolbar *mapTypeBar;
     IBOutlet UIToolbar *optionBar;
+    
+    NSMutableDictionary* allData;
+    NSMutableDictionary* nameData;
 }
 
 -(IBAction)showMapTypeBar;
@@ -33,5 +36,6 @@
 -(IBAction)showUserLocation;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
+
                           
 @end
