@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @implementation ViewController
+//@synthesize runs, version;
 
 - (void)didReceiveMemoryWarning
 {
@@ -81,8 +82,84 @@
     [self zoomAndSetCenter: 47.5 andLocation: startLocation];
     
     map.delegate = self;
-}
+    
+   /* NSBundle *bundle = [NSBundle mainBundle];
+    NSString *plistPath = [bundle pathForResource:@"Coordinates" ofType:@"plist"];
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    NSDictionary * temp = (NSDictionary *)[NSPropertyListSerialization propertyListFromData:plistXML mutabilityOption:NSPropertyListMutableContainersAndLeaves format:&format errorDescription:&errorDesc];
+    NSString *Latitude = [temp objectForKey:@"Latitude"];
+    NSString *ongitude = [temp objectForKey:@"Longitude"];
+   */
+    
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:plistPath])
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
+        [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
+    }
+    
+    allData = [NSMutableDictionary dictionaryWithContentsOfFile: plistPath];
+    NSLog(@"Inhalt: %@", allData);
+    
+    [version setText: [allData objectForKey:@"Version"]];
+    int starts = [[allData objectForKey:@"Runs"] intValue];
+    starts ++;
+    [runs setText:
+     [NSString stringWithFormat:@"%i", starts]];
+    
+    [allData setObject:[NSNumber numberWithInt:starts] forKey:@"Runs"];
+    [allData writeToFile:plistPath atomically:YES];
+    
+    allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+    NSLog(@"Inhalt: %@", allData);
+    
+    nameData = [allData objectForKey:@"Brunnen"];
+    NSLog(@"nameData: %@", nameData);
+    
+    //[name setText: [nameData objectForKey:@"Longitude";]];
+   // [instrument set Text: [nameData objectForKey:@"Latitude"]];
+    NSString *Latitude = [nameData objectForKey:@"Latitude"];
+    NSString *Longitude = [nameData objectForKey:@"Longitude"];
+    
+    
+    // Plist einlesen
+    //[super viewDidLoad];
+    /*NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"]; NSLog(@"Pfad: %@",plistPath);
+    allData = [NSMutableDictionary dictionaryWithContentsOfFile: plistPath]; NSLog(@"Inhalt: %@", allData);
+    // UI Ausgabe
+    [version setText:[allData objectForKey:@"Version";]];
+    int starts = [[allData objectForKey:@"Runs"] intValue]; starts ++;
+    [runs setText: [NSString stringWithFormat:@"%i",starts;]];
+    // Neue Runs-Zahl in Plist schreiben
+    [allData setObject:[NSNumber numberWithInt:starts] forKey:@"Runs"]; [allData writeToFile:plistPath atomically:YES];
+    // Was steht jetzt in der Plist?
+    allData = [NSMutableDictionary dictionaryWithContentsOfFile: plistPath]; NSLog(@"Inhalt: %@", allData);
+    // Sub-Dictionary aus Plist laden
+    nameData = [allData objectForKey:@"Musician"]; NSLog(@"nameData: %@", nameData);
+    // UI Ausgabe von nameData
+    [name setText:[nameData objectForKey:@"Name";]];
+    [instrument setText: [nameData objectForKey:@"Instrument";]];
+}  
 
+-(void) submitButton {
+    // Plist einlesen
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Data" ofType:@"plist"]; allData = [NSMutableDictionary dictionaryWithContentsOfFile: plistPath];
+    nameData = [allData objectForKey:@"Musician"];
+    // Veränderten Musician-Eintrag in Plist schreiben
+    [nameData setValue:[name text] forKey:@"Name";];
+    [nameData setValue:[instrument text] forKey:@"Instrument"]; [allData setObject:nameData forKey:@"Musician"];
+    [allData writeToFile:plistPath atomically:YES];
+}*/
+}
+    
 - (void)viewDidUnload
 {
     [super viewDidUnload];
