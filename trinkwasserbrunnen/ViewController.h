@@ -29,6 +29,8 @@
     
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
+    
+    IBOutlet UITextField *testPlist;
 }
 
 -(IBAction)showMapTypeBar;

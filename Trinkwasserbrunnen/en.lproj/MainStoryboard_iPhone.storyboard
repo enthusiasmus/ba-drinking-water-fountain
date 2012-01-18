@@ -61,6 +61,12 @@
                                 </items>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="xme-qG-jmL">
+                                <rect key="frame" x="36" y="45" width="249" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -72,6 +78,7 @@
                         <outlet property="mapTypeSatellite" destination="mHO-4P-Ju7" id="ISB-l1-gY3"/>
                         <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
                         <outlet property="optionBar" destination="O9I-wg-1Wz" id="7yU-1j-JPh"/>
+                        <outlet property="testPlist" destination="xme-qG-jmL" id="lWK-dl-HDE"/>
                         <outlet property="userPosition" destination="nZL-gL-Kvt" id="lzA-5F-dTB"/>
                     </connections>
                 </viewController>
@@ -92,6 +99,7 @@
                 <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="optionBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="testPlist" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
             </relationships>
         </class>
