@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F27DCD6A14C5FAED00EC38FF /* icon.jpg */; };
 		F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11714A1E7EB00E6E619 /* UIKit.framework */; };
 		F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11914A1E7EB00E6E619 /* Foundation.framework */; };
 		F282C11C14A1E7EB00E6E619 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F27DCD6A14C5FAED00EC38FF /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trinkwasserbrunnen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F282C11714A1E7EB00E6E619 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F282C11914A1E7EB00E6E619 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -55,6 +57,7 @@
 		F282C10814A1E7EB00E6E619 = {
 			isa = PBXGroup;
 			children = (
+				F27DCD6A14C5FAED00EC38FF /* icon.jpg */,
 				F282C13714A1EB8C00E6E619 /* MapKit.framework */,
 				F282C11D14A1E7EB00E6E619 /* Trinkwasserbrunnen */,
 				F282C11614A1E7EB00E6E619 /* Frameworks */,
@@ -158,6 +161,7 @@
 				F282C12214A1E7EB00E6E619 /* InfoPlist.strings in Resources */,
 				F282C12B14A1E7EB00E6E619 /* MainStoryboard_iPhone.storyboard in Resources */,
 				F282C12E14A1E7EC00E6E619 /* MainStoryboard_iPad.storyboard in Resources */,
+				F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +296,7 @@
 				F282C13614A1E7EC00E6E619 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
