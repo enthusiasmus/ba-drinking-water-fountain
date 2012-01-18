@@ -46,9 +46,9 @@
 
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2
 {
-    activeButton.tintColor = [UIColor darkGrayColor];
-    inactiveButton1.tintColor = [UIColor lightGrayColor];
-    inactiveButton2.tintColor = [UIColor lightGrayColor];
+    activeButton.tintColor = [UIColor blackColor];
+    inactiveButton1.tintColor = [UIColor darkGrayColor];
+    inactiveButton2.tintColor = [UIColor darkGrayColor];
     
 }
 
@@ -74,6 +74,21 @@
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
     //ToDo: Unterscheidung welches Item selektiert worden ist und dann dementsprechende Aktion ausfüh
     NSLog(@"item selected");
+    
+    UITabBarItem *tabBarItem = (UITabBarItem *)item;
+    int tabBarIndex = (int)tabBarItem.tag;
+    switch(tabBarIndex){
+        case 0:
+            [self showUserLocation];
+            break;
+        case 1:
+            break;
+        case 2:
+            break;
+        case 3:
+            [self showMapTypeBar];
+            break;
+    }
 }
 
 - (void)viewDidLoad
