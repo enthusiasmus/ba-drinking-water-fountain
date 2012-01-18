@@ -11,7 +11,7 @@
 
 #define METERS_PER_MILE 1609.344
 
-@interface ViewController : UIViewController <MKMapViewDelegate>
+@interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
 {
     BOOL _doneInitialZoom;
     
@@ -30,6 +30,8 @@
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
     
+    IBOutlet UITabBarItem *testTabBarItem;
+    IBOutlet UITabBar *tabBar;
     IBOutlet UITextField *testPlist;
 }
 

@@ -71,6 +71,11 @@
     [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
 }
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
+    //ToDo: Unterscheidung welches Item selektiert worden ist und dann dementsprechende Aktion ausfüh
+    NSLog(@"item selected");
+}
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
@@ -82,6 +87,8 @@
     [self zoomAndSetCenter: 47.5 andLocation: startLocation];
     
     map.delegate = self;
+    tabBar.delegate = self;
+    NSLog(@"delegiert");
     
     //ToDo: Dort wo Koordinaten in der Plist sind, Nadel plazieren
 }
