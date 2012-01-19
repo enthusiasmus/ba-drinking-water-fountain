@@ -9,12 +9,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348414136.772787"
+         timestampString = "348690467.228964"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "137"
-         endingLineNumber = "137"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "201"
+         endingLineNumber = "201"
+         landmarkName = "-viewDidUnload"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -23,12 +23,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348413901.820116"
+         timestampString = "348690467.228964"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "113"
-         endingLineNumber = "113"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "176"
+         endingLineNumber = "176"
+         landmarkName = "-readPlist"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -37,12 +37,40 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348415240.346721"
+         timestampString = "348690467.228964"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
-         landmarkName = "-viewDidLoad"
+         startingLineNumber = "177"
+         endingLineNumber = "177"
+         landmarkName = "-readPlist"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Trinkwasserbrunnen/ViewController.h"
+         timestampString = "348686237.723469"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "14"
+         endingLineNumber = "14"
+         landmarkName = "@interface AddressAnnotation"
+         landmarkType = "2">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Trinkwasserbrunnen/ViewController.m"
+         timestampString = "348690699.401011"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "144"
+         endingLineNumber = "144"
+         landmarkName = "-showAddress"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

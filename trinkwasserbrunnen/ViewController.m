@@ -8,8 +8,30 @@
 
 #import "ViewController.h"
 
+@implementation AddressAnnotation
+
+@synthesize coordinate;
+
+/*- (NSString *)subtitle
+{
+    return @"Sub Title";
+}
+- (NSString *)title
+{
+    return @"Title";
+}*/
+
+-(id)initWithCoordinate:(CLLocationCoordinate2D) c
+{
+    coordinate=c;
+    NSLog(@"%f,%f",c.latitude,c.longitude);
+    return self;
+}
+
+@end
+
 @implementation ViewController
-//@synthesize runs, version;
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -105,8 +127,49 @@
     tabBar.delegate = self;
     NSLog(@"delegiert");
     
-    //ToDo: Dort wo Koordinaten in der Plist sind, Nadel plazieren
+    [self showAddress];
+   //ToDo: Dort wo Koordinaten in der Plist sind, Nadel plazieren
 }
+
+- (IBAction) showAddress
+{
+    
+    MKCoordinateRegion region;
+    MKCoordinateSpan span;
+    span.latitudeDelta=0.2;
+    span.longitudeDelta=0.2;
+    
+    CLLocationCoordinate2D location; 
+    
+    location.latitude = [[nameData objectForKey:@"Latitude"] intValue];//37.58492206;
+    location.longitude = [[nameData objectForKey:@"Longitude"] intValue];//-122.32237816;
+    region.span=span;
+    region.center=location;
+    
+    if(addAnnotation != nil)
+    {
+        [map removeAnnotation:addAnnotation];
+        addAnnotation = nil;
+    }
+    
+    addAnnotation = [[AddressAnnotation alloc] initWithCoordinate:location];
+    [map addAnnotation:addAnnotation];
+    
+    [map setRegion:region animated:TRUE];
+    [map regionThatFits:region];
+    //[mapView selectAnnotation:mLodgeAnnotation animated:YES];
+}
+
+- (MKAnnotationView *) map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>) annotation
+{
+    MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
+    annView.pinColor = MKPinAnnotationColorGreen;
+    annView.animatesDrop=TRUE;
+    annView.canShowCallout = YES;
+    annView.calloutOffset = CGPointMake(-5, 5);
+    return annView;
+}
+//</mkannotation>
 
 - (void)readPlist{
     NSError *error;
@@ -132,6 +195,7 @@
     NSString *Longitude = [nameData objectForKey:@"Longitude"];
     NSString *data = [NSString stringWithFormat:@"%@/%@", Latitude, Longitude];
     testPlist.text = data;
+    
 }
     
 - (void)viewDidUnload
