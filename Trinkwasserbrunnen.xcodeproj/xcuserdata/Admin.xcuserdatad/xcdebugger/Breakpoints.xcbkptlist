@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348690467.228964"
+         timestampString = "348699607.960194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "201"
-         endingLineNumber = "201"
+         startingLineNumber = "223"
+         endingLineNumber = "223"
          landmarkName = "-viewDidUnload"
          landmarkType = "5">
       </FileBreakpoint>
@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348690467.228964"
+         timestampString = "348699607.960194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "176"
-         endingLineNumber = "176"
+         startingLineNumber = "198"
+         endingLineNumber = "198"
          landmarkName = "-readPlist"
          landmarkType = "5">
       </FileBreakpoint>
@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348690467.228964"
+         timestampString = "348699607.960194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "177"
-         endingLineNumber = "177"
+         startingLineNumber = "199"
+         endingLineNumber = "199"
          landmarkName = "-readPlist"
          landmarkType = "5">
       </FileBreakpoint>
@@ -65,11 +65,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348690699.401011"
+         timestampString = "348699607.960194"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "144"
-         endingLineNumber = "144"
+         startingLineNumber = "166"
+         endingLineNumber = "166"
          landmarkName = "-showAddress"
          landmarkType = "5">
       </FileBreakpoint>

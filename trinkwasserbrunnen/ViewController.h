@@ -52,6 +52,5 @@
 -(IBAction)showUserLocation;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
-- (IBAction) showAddress;
-
+- (IBAction) showAddress;                        
 @end

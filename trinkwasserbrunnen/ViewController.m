@@ -141,8 +141,30 @@
     
     CLLocationCoordinate2D location; 
     
-    location.latitude = [[nameData objectForKey:@"Latitude"] intValue];//37.58492206;
-    location.longitude = [[nameData objectForKey:@"Longitude"] intValue];//-122.32237816;
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    if (![fileManager fileExistsAtPath:plistPath])
+    {
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
+        [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
+    }
+    
+    allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
+    NSLog(@"Inhalt: %@", allData);
+    
+    nameData = [allData objectForKey:@"Brunnen"];
+    NSLog(@"Brunnen: %@", nameData);
+    
+    NSString *Latitude = [nameData objectForKey:@"Latitude"];
+    NSString *Longitude = [nameData objectForKey:@"Longitude"];
+    
+    location.latitude = [Latitude doubleValue];//37.58492206;
+    location.longitude = [Longitude doubleValue];//-122.32237816;
     region.span=span;
     region.center=location;
     
@@ -172,7 +194,7 @@
 //</mkannotation>
 
 - (void)readPlist{
-    NSError *error;
+    /*NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
@@ -194,7 +216,7 @@
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
     NSString *Longitude = [nameData objectForKey:@"Longitude"];
     NSString *data = [NSString stringWithFormat:@"%@/%@", Latitude, Longitude];
-    testPlist.text = data;
+    testPlist.text = data;*/
     
 }
     
