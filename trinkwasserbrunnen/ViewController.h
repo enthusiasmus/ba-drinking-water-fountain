@@ -14,11 +14,7 @@
 @interface AddressAnnotation : NSObject <MKAnnotation>
 {
     CLLocationCoordinate2D coordinate;
-    
-    //NSString *longitude;
-    //NSString *latitude;
 }
-
 @end
 
 @interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
@@ -44,7 +40,6 @@
     
     IBOutlet UITabBarItem *testTabBarItem;
     IBOutlet UITabBar *tabBar;
-    IBOutlet UITextField *testPlist;
 }
 
 -(IBAction)showMapTypeBar;
@@ -52,5 +47,6 @@
 -(IBAction)showUserLocation;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
-- (IBAction) showAddress;                        
+- (IBAction) setMarkers;    
+
 @end

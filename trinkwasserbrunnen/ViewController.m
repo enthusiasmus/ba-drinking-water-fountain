@@ -12,15 +12,6 @@
 
 @synthesize coordinate;
 
-/*- (NSString *)subtitle
-{
-    return @"Sub Title";
-}
-- (NSString *)title
-{
-    return @"Title";
-}*/
-
 -(id)initWithCoordinate:(CLLocationCoordinate2D) c
 {
     coordinate=c;
@@ -31,7 +22,6 @@
 @end
 
 @implementation ViewController
-
 
 - (void)didReceiveMemoryWarning
 {
@@ -90,7 +80,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
-    [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
+    //[self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
@@ -121,18 +111,17 @@
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
     startLocation.longitude = 13.12042236;
-    [self zoomAndSetCenter: 47.5 andLocation: startLocation];
+    [self zoomAndSetCenter: 10.5 andLocation: startLocation];
     
     map.delegate = self;
     tabBar.delegate = self;
-    NSLog(@"delegiert");
     
-    [self showAddress];
-   //ToDo: Dort wo Koordinaten in der Plist sind, Nadel plazieren
+    [self setMarkers];
 }
 
-- (IBAction) showAddress
+- (IBAction) setMarkers
 {
+    //ToDo: Mehrere Markers plazieren
     
     MKCoordinateRegion region;
     MKCoordinateSpan span;
@@ -157,7 +146,7 @@
     allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     NSLog(@"Inhalt: %@", allData);
     
-    nameData = [allData objectForKey:@"Brunnen"];
+    nameData = [allData objectForKey:@"Brunnen1"];
     NSLog(@"Brunnen: %@", nameData);
     
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
@@ -179,7 +168,6 @@
     
     [map setRegion:region animated:TRUE];
     [map regionThatFits:region];
-    //[mapView selectAnnotation:mLodgeAnnotation animated:YES];
 }
 
 - (MKAnnotationView *) map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>) annotation
@@ -190,34 +178,6 @@
     annView.canShowCallout = YES;
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
-}
-//</mkannotation>
-
-- (void)readPlist{
-    /*NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if (![fileManager fileExistsAtPath:plistPath])
-    {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
-        [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
-    }
-    
-    allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-    NSLog(@"Inhalt: %@", allData);
-    
-    nameData = [allData objectForKey:@"Brunnen"];
-    NSLog(@"Brunnen: %@", nameData);
-    
-    NSString *Latitude = [nameData objectForKey:@"Latitude"];
-    NSString *Longitude = [nameData objectForKey:@"Longitude"];
-    NSString *data = [NSString stringWithFormat:@"%@/%@", Latitude, Longitude];
-    testPlist.text = data;*/
-    
 }
     
 - (void)viewDidUnload

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11C74" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11A511" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
@@ -42,12 +42,6 @@
                                 </items>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="LatitudeLongitude aus Plist &quot;TESTZWECKE&quot;" borderStyle="roundedRect" minimumFontSize="17" id="xme-qG-jmL">
-                                <rect key="frame" x="36" y="201" width="249" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <tabBar contentMode="scaleToFill" id="qHb-6T-U7h">
                                 <rect key="frame" x="0.0" y="411" width="320" height="49"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -69,7 +63,6 @@
                         <outlet property="mapTypeSatellite" destination="mHO-4P-Ju7" id="ISB-l1-gY3"/>
                         <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
                         <outlet property="tabBar" destination="qHb-6T-U7h" id="KhX-FY-9Ia"/>
-                        <outlet property="testPlist" destination="xme-qG-jmL" id="lWK-dl-HDE"/>
                         <outlet property="testTabBarItem" destination="H1O-CL-N1U" id="Jew-FA-cJU"/>
                     </connections>
                 </viewController>
@@ -77,28 +70,6 @@
             <point key="canvasLocation" x="-5" y="-155"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeMapType:"/>
-                <relationship kind="action" name="showAddress"/>
-                <relationship kind="action" name="showMapTypeBar"/>
-                <relationship kind="action" name="showUserLocation"/>
-                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapType" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeBar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="mapTypeHybrid" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="optionBar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="tabBar" candidateClass="UITabBar"/>
-                <relationship kind="outlet" name="testPlist" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="testTabBarItem" candidateClass="UITabBarItem"/>
-                <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

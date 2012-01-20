@@ -11,10 +11,10 @@
 	</dict>
 	<key>Brunnen2</key>
 	<dict>
-		<key>Longitude</key>
-		<string>-122.38559246</string>
 		<key>Latitude</key>
 		<string>37.6161691</string>
+		<key>Longitude</key>
+		<string>-122.38559246</string>
 	</dict>
 </dict>
 </plist>
