@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F27DCD6A14C5FAED00EC38FF /* icon.jpg */; };
 		8428E4AA14C2067F0093B23F /* Coordinates.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8428E4A914C2067F0093B23F /* Coordinates.plist */; };
+		F26474C514CA06D600D392BE /* route.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474C414CA06D600D392BE /* route.png */; };
+		F26474C814CA06E200D392BE /* location.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474C714CA06E200D392BE /* location.png */; };
+		F26474CA14CA06F200D392BE /* map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474C914CA06F200D392BE /* map-marker.png */; };
+		F26474CC14CA070000D392BE /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474CB14CA070000D392BE /* map.png */; };
+		F26474CE14CA076200D392BE /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474CD14CA076200D392BE /* water.png */; };
+		F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F27DCD6A14C5FAED00EC38FF /* icon.jpg */; };
 		F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11714A1E7EB00E6E619 /* UIKit.framework */; };
 		F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11914A1E7EB00E6E619 /* Foundation.framework */; };
 		F282C11C14A1E7EB00E6E619 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */; };
@@ -22,8 +27,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		F27DCD6A14C5FAED00EC38FF /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		8428E4A914C2067F0093B23F /* Coordinates.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Coordinates.plist; sourceTree = "<group>"; };
+		F26474C414CA06D600D392BE /* route.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = route.png; sourceTree = "<group>"; };
+		F26474C714CA06E200D392BE /* location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = location.png; sourceTree = "<group>"; };
+		F26474C914CA06F200D392BE /* map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker.png"; sourceTree = "<group>"; };
+		F26474CB14CA070000D392BE /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		F26474CD14CA076200D392BE /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
+		F27DCD6A14C5FAED00EC38FF /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trinkwasserbrunnen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F282C11714A1E7EB00E6E619 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F282C11914A1E7EB00E6E619 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -60,6 +70,11 @@
 			isa = PBXGroup;
 			children = (
 				F27DCD6A14C5FAED00EC38FF /* icon.jpg */,
+				F26474C714CA06E200D392BE /* location.png */,
+				F26474CB14CA070000D392BE /* map.png */,
+				F26474C414CA06D600D392BE /* route.png */,
+				F26474CD14CA076200D392BE /* water.png */,
+				F26474C914CA06F200D392BE /* map-marker.png */,
 				F282C13714A1EB8C00E6E619 /* MapKit.framework */,
 				F282C11D14A1E7EB00E6E619 /* Trinkwasserbrunnen */,
 				F282C11614A1E7EB00E6E619 /* Frameworks */,
@@ -166,6 +181,11 @@
 				F282C12E14A1E7EC00E6E619 /* MainStoryboard_iPad.storyboard in Resources */,
 				F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */,
 				8428E4AA14C2067F0093B23F /* Coordinates.plist in Resources */,
+				F26474C514CA06D600D392BE /* route.png in Resources */,
+				F26474C814CA06E200D392BE /* location.png in Resources */,
+				F26474CA14CA06F200D392BE /* map-marker.png in Resources */,
+				F26474CC14CA070000D392BE /* map.png in Resources */,
+				F26474CE14CA076200D392BE /* water.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

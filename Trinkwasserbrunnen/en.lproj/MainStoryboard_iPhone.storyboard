@@ -47,10 +47,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
-                                    <tabBarItem title="Standort" id="wdE-Cf-43w"/>
-                                    <tabBarItem tag="1" enabled="NO" title="Trinken" id="H1O-CL-N1U"/>
-                                    <tabBarItem tag="2" enabled="NO" title="Route" id="IqA-9A-csi"/>
-                                    <tabBarItem tag="3" title="Kartentyp" id="XJO-BL-eko"/>
+                                    <tabBarItem title="Standort" image="map-marker.png" id="wdE-Cf-43w"/>
+                                    <tabBarItem tag="1" enabled="NO" title="Trinken" image="water.png" id="H1O-CL-N1U"/>
+                                    <tabBarItem tag="2" enabled="NO" title="Route" image="route.png" id="IqA-9A-csi"/>
+                                    <tabBarItem tag="3" title="Kartentyp" image="map.png" id="XJO-BL-eko"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -70,6 +70,33 @@
             <point key="canvasLocation" x="-5" y="-155"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map-marker.png" width="30" height="30"/>
+        <image name="map.png" width="30" height="30"/>
+        <image name="route.png" width="30" height="30"/>
+        <image name="water.png" width="30" height="30"/>
+    </resources>
+    <classes>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeMapType:"/>
+                <relationship kind="action" name="setMarkers"/>
+                <relationship kind="action" name="showMapTypeBar"/>
+                <relationship kind="action" name="showUserLocation"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapType" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="mapTypeHybrid" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="optionBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="tabBar" candidateClass="UITabBar"/>
+                <relationship kind="outlet" name="testTabBarItem" candidateClass="UITabBarItem"/>
+                <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
