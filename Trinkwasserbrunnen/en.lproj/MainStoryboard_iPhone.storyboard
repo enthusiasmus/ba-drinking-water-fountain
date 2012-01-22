@@ -48,11 +48,33 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <items>
                                     <tabBarItem title="Standort" image="map-marker.png" id="wdE-Cf-43w"/>
-                                    <tabBarItem tag="1" enabled="NO" title="Trinken" image="water.png" id="H1O-CL-N1U"/>
-                                    <tabBarItem tag="2" enabled="NO" title="Route" image="route.png" id="IqA-9A-csi"/>
+                                    <tabBarItem tag="1" title="Trinken" image="water.png" id="H1O-CL-N1U"/>
+                                    <tabBarItem tag="2" title="Route" image="route.png" id="IqA-9A-csi"/>
                                     <tabBarItem tag="3" title="Kartentyp" image="map.png" id="XJO-BL-eko"/>
                                 </items>
                             </tabBar>
+                            <view contentMode="scaleToFill" id="w6H-MY-ULe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="95"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UserLocation" clearsOnBeginEditing="YES" minimumFontSize="13" id="e9a-AF-3H0">
+                                        <rect key="frame" x="20" y="44" width="280" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="route"/>
+                                    </textField>
+                                    <navigationBar contentMode="scaleToFill" id="a9I-pG-o9T">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <items>
+                                            <navigationItem title="Route" id="idM-8w-lBB"/>
+                                        </items>
+                                    </navigationBar>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -64,6 +86,9 @@
                         <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
                         <outlet property="tabBar" destination="qHb-6T-U7h" id="KhX-FY-9Ia"/>
                         <outlet property="testTabBarItem" destination="H1O-CL-N1U" id="Jew-FA-cJU"/>
+                        <outlet property="userLocationInput" destination="e9a-AF-3H0" id="ujY-Bx-HL3"/>
+                        <outlet property="wellSearch" destination="w6H-MY-ULe" id="9oj-Yp-lV1"/>
+                        <outlet property="wellSearchHeadline" destination="idM-8w-lBB" id="5fi-39-YYc"/>
                     </connections>
                 </viewController>
             </objects>
@@ -76,27 +101,6 @@
         <image name="route.png" width="30" height="30"/>
         <image name="water.png" width="30" height="30"/>
     </resources>
-    <classes>
-        <class className="ViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="changeMapType:"/>
-                <relationship kind="action" name="setMarkers"/>
-                <relationship kind="action" name="showMapTypeBar"/>
-                <relationship kind="action" name="showUserLocation"/>
-                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="mapType" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeBar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="mapTypeHybrid" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="optionBar" candidateClass="UIToolbar"/>
-                <relationship kind="outlet" name="tabBar" candidateClass="UITabBar"/>
-                <relationship kind="outlet" name="testTabBarItem" candidateClass="UITabBarItem"/>
-                <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
