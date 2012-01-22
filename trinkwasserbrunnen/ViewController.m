@@ -33,9 +33,22 @@
 
 - (IBAction)showMapTypeBar{         
     [UIToolbar animateWithDuration:0.2 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
+    if (mapTypeBar.alpha == 0) {
+        [tabBar setSelectedItem:nil];
+    }
 }
-- (IBAction)showRouteSearch {         
-    [UIView animateWithDuration:0.2 animations:^{[routeSearch setAlpha:!routeSearch.alpha];}];
+- (IBAction)showWellSearch : (int)buttonId {         
+    [UIView animateWithDuration:0.2 animations:^{[wellSearch setAlpha:!wellSearch.alpha];}];
+    if (wellSearch.alpha == 0) {
+        [tabBar setSelectedItem:nil];
+    }
+    if (buttonId == 1) {
+     wellSearchHeadline.title = @"Trinken";
+     // TODO: nähesten Trinkwasserbrunnen anzeigen
+     } else if (buttonId == 2) {
+     wellSearchHeadline.title = @"Route";
+     // TODO: Route zum nähesten Trinkwasserbrunnen anzeigen
+     }
 }
 
 - (IBAction)changeMapType:(id)sender{     
@@ -87,8 +100,7 @@
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    //ToDo: Unterscheidung welches Item selektiert worden ist und dann dementsprechende Aktion ausfüh
-    NSLog(@"item selected");
+    // NSLog(@"item selected");
     
     UITabBarItem *tabBarItem = (UITabBarItem *)item;
     int tabBarIndex = (int)tabBarItem.tag;
@@ -97,9 +109,10 @@
             [self showUserLocation];
             break;
         case 1:
+            [self showWellSearch : 1];
             break;
         case 2:
-            [self showRouteSearch];
+            [self showWellSearch : 2];
             break;
         case 3:
             [self showMapTypeBar];
@@ -111,7 +124,7 @@
 {    
     [super viewDidLoad];
     mapTypeBar.alpha = 0;
-    routeSearch.alpha = 0;
+    wellSearch.alpha = 0;
 
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;

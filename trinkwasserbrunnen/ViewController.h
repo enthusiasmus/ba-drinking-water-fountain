@@ -35,8 +35,9 @@
     IBOutlet UIToolbar *mapTypeBar;
     IBOutlet UIToolbar *optionBar;
     
-    IBOutlet UIView *routeSearch;
+    IBOutlet UIView *wellSearch;
     IBOutlet UITextField *userLocationInput;
+    IBOutlet UINavigationItem *wellSearchHeadline;
     
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
@@ -46,7 +47,7 @@
 }
 
 -(IBAction)showMapTypeBar;
--(IBAction)showRouteSearch;
+-(IBAction)showWellSearch : (int)buttonId;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
