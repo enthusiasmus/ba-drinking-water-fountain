@@ -27,27 +27,28 @@
     
     IBOutlet MKMapView *map;
     
-     AddressAnnotation *addAnnotation;
+    AddressAnnotation *addAnnotation;
 
+    //for map
     IBOutlet UIBarButtonItem *mapTypeStandard;
     IBOutlet UIBarButtonItem *mapTypeSatellite;
     IBOutlet UIBarButtonItem *mapTypeHybrid;
-    
     IBOutlet UIBarButtonItem *mapType;
     IBOutlet UIBarButtonItem *userPosition;
     
+    //for screen
+    IBOutlet UIView *searchField;
+    IBOutlet UITextField *userInput;
+    IBOutlet UINavigationItem *searchHeadline;
+    IBOutlet UITabBar *tabBar;
     IBOutlet UIToolbar *mapTypeBar;
     IBOutlet UIToolbar *optionBar;
     
-    IBOutlet UIView *searchField;
-    IBOutlet UITextField *userLocationInput;
-    IBOutlet UINavigationItem *searchHeadline;
-    
+    //for markers
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
     
-    IBOutlet UITabBar *tabBar;
-    
+    //for routing
     NSMutableData* responseData;
     MKPolyline* currentRoute;
     MKMapRect currentMapRect;
@@ -58,7 +59,7 @@
 -(IBAction)showSearchField : (int)buttonId;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
--(IBAction) showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode;
+-(IBAction)showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
 -(IBAction) setMarkers;
