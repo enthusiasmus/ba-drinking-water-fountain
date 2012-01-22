@@ -20,7 +20,7 @@
 
 @end
 
-@interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
+@interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate, UITextFieldDelegate>
 {
     BOOL _doneInitialZoom;
     BOOL gotFirstUserLocation;
@@ -58,5 +58,5 @@
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
 - (IBAction) setMarkers;    
-
+// -(BOOL) textFieldShouldReturn:(UITextField *)textField;
 @end

@@ -41,7 +41,7 @@
         [tabBar setSelectedItem:nil];
     }
 }
-- (IBAction)showSearchField : (int)buttonId {     
+- (IBAction)showSearchField:(int)buttonId {     
     //set alpha of mapTypeBar 0 when searching for the next fontaint
     if (mapTypeBar.alpha != 0)
         [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
@@ -54,14 +54,21 @@
     
     if(buttonId == 1){
         searchHeadline.title = @"Trinken";
-        // TODO: nähesten Trinkwasserbrunnen anzeigen
     }
     else if(buttonId == 2){
          searchHeadline.title = @"Route";
-         // TODO: Route zum nähesten Trinkwasserbrunnen anzeigen
     }
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // hide keyboard and search field after pressing the "route" button
+    [textField resignFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha:0];}];
+    
+    // TODO: Funktionen, die Trinkwasserbrunnen bzw. Route anzeigen, hier aufrufen!
+    
+    return YES;
+}
 - (IBAction)changeMapType:(id)sender{        
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
@@ -150,6 +157,9 @@
     mapTypeBar.alpha = 0;
     searchField.alpha = 0;
     gotFirstUserLocation = false;
+    
+    //userLocationInput.returnKeyType = UIReturnKeyRoute;
+    userLocationInput.delegate = self;
 
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
