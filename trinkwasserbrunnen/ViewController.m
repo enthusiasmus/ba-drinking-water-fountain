@@ -133,27 +133,33 @@
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath:plistPath])
     {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
         [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
     }
+         
+   /* NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
+    NSLog(@"Inhalt: %@", data);
     
+    NSDictionary *claimlist = [data objectAtIndex:0];*/
     allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     NSLog(@"Inhalt: %@", allData);
     
-    nameData = [allData objectForKey:@"Brunnen1"];
+    nameData = [allData objectForKey:@"Brunnen"];
     NSLog(@"Brunnen: %@", nameData);
+   // NSMutableArray *array = [allData objectForKey:@"Brunnen"];
+    //NSLog(@"Brunnen: %@", array);
     
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
     NSString *Longitude = [nameData objectForKey:@"Longitude"];
     
-    location.latitude = [Latitude doubleValue];//37.58492206;
-    location.longitude = [Longitude doubleValue];//-122.32237816;
+    location.latitude = [Latitude doubleValue];
+    location.longitude = [Longitude doubleValue];
     region.span=span;
     region.center=location;
     

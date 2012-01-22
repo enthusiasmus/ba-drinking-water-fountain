@@ -2,19 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Brunnen1</key>
-	<dict>
-		<key>Latitude</key>
-		<string>37.58492206</string>
-		<key>Longitude</key>
-		<string>-122.32237816</string>
-	</dict>
-	<key>Brunnen2</key>
-	<dict>
-		<key>Latitude</key>
-		<string>37.6161691</string>
-		<key>Longitude</key>
-		<string>-122.38559246</string>
-	</dict>
+	<key>Brunnen</key>
+	<array>
+		<dict>
+			<key>Latitude</key>
+			<string>37.58492206</string>
+			<key>Longitude</key>
+			<string>-122.32237816</string>
+		</dict>
+		<dict>
+			<key>Latitude</key>
+			<string>37.6161691</string>
+			<key>Longitude</key>
+			<string>-122.38559246</string>
+		</dict>
+	</array>
 </dict>
 </plist>
