@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import "JSON/SBJson.h"
+#define kLatestKivaLoansURL @"https://maps.googleapis.com/maps/api/directions/json?origin=Naumanngasse,AT&destination=Egger-Lienz-Gasse,AT&mode=walking&units=metric&sensor=true"
 
 #define METERS_PER_MILE 1609.344
 
@@ -46,8 +48,11 @@
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
     
-    IBOutlet UITabBarItem *testTabBarItem;
     IBOutlet UITabBar *tabBar;
+    
+    NSMutableData* responseData;
+    MKPolyline* currentRoute;
+    MKMapRect currentMapRect;
 }
 
 -(IBAction)showMapTypeBar;
@@ -57,6 +62,9 @@
 -(IBAction)showRoute;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
-- (IBAction) setMarkers;    
+- (IBAction) setMarkers;
+-(NSMutableArray *)decodePolyline: (NSMutableString *)encoded;
+-(void)drawPolyline: (NSMutableArray *)allpoints;
+
 
 @end
