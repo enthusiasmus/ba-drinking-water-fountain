@@ -9,12 +9,12 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "348928908.538791"
+         timestampString = "348934994.460648"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "227"
-         endingLineNumber = "227"
-         landmarkName = "-viewWillDisappear:"
+         startingLineNumber = "234"
+         endingLineNumber = "234"
+         landmarkName = "-viewDidUnload"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -28,7 +28,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "199"
          endingLineNumber = "199"
-         landmarkName = "-map:viewForAnnotation:"
+         landmarkName = "-setMarkers"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -42,7 +42,7 @@
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "200"
          endingLineNumber = "200"
-         landmarkName = "-map:viewForAnnotation:"
+         landmarkName = "-setMarkers"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint

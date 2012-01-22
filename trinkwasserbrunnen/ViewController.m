@@ -209,6 +209,12 @@
     
     [map setRegion:region animated:TRUE];
     [map regionThatFits:region];
+    
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    ;
 }
 
 - (MKAnnotationView *) map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>) annotation
@@ -216,8 +222,9 @@
     MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
     annView.pinColor = MKPinAnnotationColorGreen;
     annView.animatesDrop=TRUE;
-    annView.canShowCallout = YES;
-    annView.draggable = YES;
+    //annView.canShowCallout = YES;
+    [annView setSelected:YES];
+    [annView addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
 }
