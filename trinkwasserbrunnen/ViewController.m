@@ -100,6 +100,7 @@
     
     if (!map.userLocation.location) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Ihre Position kann derzeit nicht gefunden werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [tabBar setSelectedItem:nil];
 		[alert show];
     } else {
         [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
@@ -153,19 +154,21 @@
     map.delegate = self;
     tabBar.delegate = self;
     
-    [self showRoute];
+    [self showRoute: @"Naumanngasse" andDestination: @"Egger-Lienz-Gasse" andMode: @"walking"];
 }
 
 /* 
  * Make an JSON Quest on Google Directions, handle the data and display it
  */
 
--(void) showRoute{
+-(IBAction) showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode{
     responseData = [NSMutableData data];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:kLatestKivaLoansURL]];
+    NSString *urlBeginn = @"https://maps.googleapis.com/maps/api/directions/json?origin=";
+    NSString *urlEnd = @"&units=metric&sensor=true";
+    NSString *url = [NSString stringWithFormat:@"%@/%@/%@", urlBeginn, start, @",AT&destination=", destination, @",AT&mode=", mode, urlEnd];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    
     NSLog(@"showROUTE");
 }
 
@@ -181,15 +184,25 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
 	responseData = nil;
-     NSLog(@"failure");
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Die Routenanfrage konnte nicht durchgeführt werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    [alert show];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {    
     NSLog(@"complete");
     NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	responseData = nil;
-           
+    
     NSArray *routes = [(NSDictionary*)[responseString JSONValue] objectForKey:@"routes"];// grab the first route
+        
+    if (!routes || !routes.count){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Die Routenanfrage ergab keine Ergebnisse!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
+    
+    NSLog(@"%@", routes);
+    
     NSDictionary *route = [routes objectAtIndex:0];
     NSDictionary *leg = [[route objectForKey:@"legs"] objectAtIndex:0];// grab the first leg
     NSArray *steps = [leg objectForKey:@"steps"];// grab the steps array
@@ -203,7 +216,8 @@
         [allPoints addObjectsFromArray:points];
     }
     
-    [self drawPolyline: allPoints];
+    [self createPolyline: allPoints];
+    [map addOverlay: currentRoute];
 }
 
 //encode the routes part of responsed json
@@ -243,35 +257,21 @@
     return array;  
 }
 
-- (void) drawPolyline: (NSMutableArray *)allpoints{
+- (void) createPolyline: (NSMutableArray *)allpoints{
     // while we create the route points, we will also be calculating the bounding box of our route
     // so we can easily zoom in on it.
     MKMapPoint northEastPoint;
     MKMapPoint southWestPoint;
     
-    // create a c array of points.
     MKMapPoint* pointArr = malloc(sizeof(CLLocationCoordinate2D) * allpoints.count);
     
     for(int idx = 0; idx < allpoints.count; idx++)
     {
-        // break the string down even further to latitude and longitude fields.
-        CLLocation *currentLoc = [allpoints objectAtIndex:idx];
-        /*NSString *currentPointString = [[NSString alloc] initWithFormat:@"%f%f", currentLoc.coordinate.latitude, currentLoc.coordinate.longitude];
-        NSArray* latLonArr = [currentPointString componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@","]];
-        
-        CLLocationDegrees latitude = [[latLonArr objectAtIndex:0] doubleValue];
-        CLLocationDegrees longitude = [[latLonArr objectAtIndex:1] doubleValue];
-        
-        // create our coordinate and add it to the correct spot in the array
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);*/
-        
+        NSLog(@"3 match");CLLocation *currentLoc = [allpoints objectAtIndex:idx];
+            
         MKMapPoint point = MKMapPointForCoordinate(currentLoc.coordinate);
         
-        //
-        // adjust the bounding box
-        //
-        
-        // if it is the first point, just use them, since we have nothing to compare to yet.
+        // if it is the first point, just use them, since we have till now nothing to compare
         if (idx == 0) {
             northEastPoint = point;
             southWestPoint = point;
@@ -289,12 +289,28 @@
         }
         
         pointArr[idx] = point;
-        
     }
     
-    // create the polyline based on the array of points.
     currentRoute = [MKPolyline polylineWithPoints:pointArr count:allpoints.count];
     currentMapRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, northEastPoint.x - southWestPoint.x, northEastPoint.y - southWestPoint.y);
+}
+
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id )overlay
+{
+    MKOverlayView* overlayView = nil;
+    if(overlay == currentRoute)
+    {
+        //if we have not yet created an overlay view for this overlay, create it now.
+        if(nil == polylineOverLayerView){
+            polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
+            polylineOverLayerView.fillColor = [UIColor blueColor];
+            polylineOverLayerView.strokeColor = [UIColor redColor];
+            polylineOverLayerView.lineWidth = 6;
+        }
+        overlayView = polylineOverLayerView;
+    }
+    
+    return overlayView;
 }
 
 

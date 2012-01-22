@@ -75,12 +75,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="QJw-sR-raa">
-                                <rect key="frame" x="20" y="283" width="238" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -92,7 +86,6 @@
                         <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
                         <outlet property="searchField" destination="w6H-MY-ULe" id="xM2-bG-30P"/>
                         <outlet property="tabBar" destination="qHb-6T-U7h" id="KhX-FY-9Ia"/>
-                        <outlet property="testJson" destination="QJw-sR-raa" id="s1H-WN-3ra"/>
                         <outlet property="userLocationInput" destination="e9a-AF-3H0" id="ujY-Bx-HL3"/>
                     </connections>
                 </viewController>
@@ -126,7 +119,6 @@
                 <relationship kind="outlet" name="searchField" candidateClass="UIView"/>
                 <relationship kind="outlet" name="searchHeadline" candidateClass="UINavigationItem"/>
                 <relationship kind="outlet" name="tabBar" candidateClass="UITabBar"/>
-                <relationship kind="outlet" name="testJson" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="userLocationInput" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="userPosition" candidateClass="UIBarButtonItem"/>
             </relationships>
