@@ -140,7 +140,9 @@
 
 -(IBAction) showRoute
 {
-    
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv", userLocationInput];
+    NSString *locationString = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:urlString]];
+    NSLog(locationString);
 }
 - (void)viewDidLoad
 {    
