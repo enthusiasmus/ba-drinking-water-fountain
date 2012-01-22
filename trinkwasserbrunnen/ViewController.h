@@ -23,8 +23,8 @@
     
     IBOutlet MKMapView *map;
     
-     AddressAnnotation *addAnnotation;
-
+    AddressAnnotation *addAnnotation;
+    
     IBOutlet UIBarButtonItem *mapTypeStandard;
     IBOutlet UIBarButtonItem *mapTypeSatellite;
     IBOutlet UIBarButtonItem *mapTypeHybrid;

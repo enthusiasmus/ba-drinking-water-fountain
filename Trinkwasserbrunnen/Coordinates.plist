@@ -5,16 +5,16 @@
 	<key>Brunnen</key>
 	<array>
 		<dict>
-			<key>Latitude</key>
-			<string>37.58492206</string>
 			<key>Longitude</key>
-			<string>-122.32237816</string>
+			<string>122.32237816</string>
+			<key>Latitude</key>
+			<string>37.58692206</string>
 		</dict>
 		<dict>
-			<key>Latitude</key>
-			<string>37.6161691</string>
 			<key>Longitude</key>
-			<string>-122.38559246</string>
+			<string>122.38580704</string>
+			<key>Latitude</key>
+			<string>37.61518327</string>
 		</dict>
 	</array>
 </dict>

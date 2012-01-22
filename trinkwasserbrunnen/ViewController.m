@@ -37,7 +37,7 @@
 
 - (IBAction)changeMapType:(id)sender{     
     [self showMapTypeBar];
-
+    
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
     switch(index){
@@ -107,7 +107,7 @@
 {    
     [super viewDidLoad];
     mapTypeBar.alpha = 0;	
-
+    
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
     startLocation.longitude = 13.12042236;
@@ -142,17 +142,17 @@
         NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
         [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
     }
-         
-   /* NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
-    NSLog(@"Inhalt: %@", data);
     
-    NSDictionary *claimlist = [data objectAtIndex:0];*/
+    /* NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
+     NSLog(@"Inhalt: %@", data);
+     
+     NSDictionary *claimlist = [data objectAtIndex:0];*/
     allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     NSLog(@"Inhalt: %@", allData);
     
     nameData = [allData objectForKey:@"Brunnen"];
     NSLog(@"Brunnen: %@", nameData);
-   // NSMutableArray *array = [allData objectForKey:@"Brunnen"];
+    // NSMutableArray *array = [allData objectForKey:@"Brunnen"];
     //NSLog(@"Brunnen: %@", array);
     
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
@@ -185,7 +185,7 @@
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
 }
-    
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
