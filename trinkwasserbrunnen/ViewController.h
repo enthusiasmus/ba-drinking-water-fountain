@@ -15,7 +15,7 @@
 {
     CLLocationCoordinate2D coordinate;
 }
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 -(id)initWithLocation:(CLLocationCoordinate2D)coord;
 
 @end

@@ -198,6 +198,7 @@
     annView.pinColor = MKPinAnnotationColorGreen;
     annView.animatesDrop=TRUE;
     annView.canShowCallout = YES;
+    annView.draggable = YES;
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
 }
