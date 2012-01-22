@@ -96,6 +96,7 @@
         case 1:
             break;
         case 2:
+            [self showRoute];
             break;
         case 3:
             [self showMapTypeBar];
@@ -103,6 +104,10 @@
     }
 }
 
+-(IBAction) showRoute
+{
+    
+}
 - (void)viewDidLoad
 {    
     [super viewDidLoad];

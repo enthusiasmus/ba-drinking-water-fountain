@@ -15,6 +15,9 @@
 {
     CLLocationCoordinate2D coordinate;
 }
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+-(id)initWithLocation:(CLLocationCoordinate2D)coord;
+
 @end
 
 @interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
@@ -45,6 +48,7 @@
 -(IBAction)showMapTypeBar;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
+-(IBAction)showRoute;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
 - (IBAction) setMarkers;    
