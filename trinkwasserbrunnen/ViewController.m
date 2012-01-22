@@ -31,29 +31,38 @@
 
 #pragma mark - View lifecycle
 
-- (IBAction)showMapTypeBar{         
-    [UIToolbar animateWithDuration:0.2 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
+- (IBAction)showMapTypeBar{   
+    //set alpha of searchField 0 when mapTypeBar is enabled
+    if (searchField.alpha != 0)
+        [UIToolbar animateWithDuration:0.3 animations:^{[searchField setAlpha: 0];}];
+    
+    [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
     if (mapTypeBar.alpha == 0) {
         [tabBar setSelectedItem:nil];
     }
 }
-- (IBAction)showWellSearch : (int)buttonId {         
-    [UIView animateWithDuration:0.2 animations:^{[wellSearch setAlpha:!wellSearch.alpha];}];
-    if (wellSearch.alpha == 0) {
+- (IBAction)showSearchField : (int)buttonId {     
+    //set alpha of mapTypeBar 0 when searching for the next fontaint
+    if (mapTypeBar.alpha != 0)
+        [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
+    
+    [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha:1];}];
+    
+    if (searchField.alpha == 0) {
         [tabBar setSelectedItem:nil];
     }
-    if (buttonId == 1) {
-     wellSearchHeadline.title = @"Trinken";
-     // TODO: nähesten Trinkwasserbrunnen anzeigen
-     } else if (buttonId == 2) {
-     wellSearchHeadline.title = @"Route";
-     // TODO: Route zum nähesten Trinkwasserbrunnen anzeigen
-     }
+    
+    if(buttonId == 1){
+        searchHeadline.title = @"Trinken";
+        // TODO: nähesten Trinkwasserbrunnen anzeigen
+    }
+    else if(buttonId == 2){
+         searchHeadline.title = @"Route";
+         // TODO: Route zum nähesten Trinkwasserbrunnen anzeigen
+    }
 }
 
-- (IBAction)changeMapType:(id)sender{     
-    [self showMapTypeBar];
-
+- (IBAction)changeMapType:(id)sender{        
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
     switch(index){
@@ -70,6 +79,9 @@
             [self setActiveMapButton:mapTypeHybrid andInactiveButton1:mapTypeStandard andInactiveButton2:mapTypeSatellite];
             break;
     }
+    
+    //after selecting a maptype disable mapTypeBar again
+    [self showMapTypeBar];
 }
 
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2
@@ -77,10 +89,15 @@
     activeButton.tintColor = [UIColor blackColor];
     inactiveButton1.tintColor = [UIColor darkGrayColor];
     inactiveButton2.tintColor = [UIColor darkGrayColor];
-    
 }
 
 - (IBAction)showUserLocation{
+    //set alpha of mapTypeBar and 0 when getting the current user location
+    if (mapTypeBar.alpha != 0)
+        [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
+    if (searchField.alpha != 0)
+        [UIToolbar animateWithDuration:0.3 animations:^{[searchField setAlpha: 0];}];
+    
     if (!map.userLocation.location) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Ihre Position kann derzeit nicht gefunden werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
 		[alert show];
@@ -96,12 +113,13 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
-    //[self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
+    if(!gotFirstUserLocation){
+        [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
+        gotFirstUserLocation = true;
+    }
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{
-    // NSLog(@"item selected");
-    
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{   
     UITabBarItem *tabBarItem = (UITabBarItem *)item;
     int tabBarIndex = (int)tabBarItem.tag;
     switch(tabBarIndex){
@@ -109,10 +127,10 @@
             [self showUserLocation];
             break;
         case 1:
-            [self showWellSearch : 1];
+            [self showSearchField : 1];
             break;
         case 2:
-            [self showWellSearch : 2];
+            [self showSearchField : 2];
             break;
         case 3:
             [self showMapTypeBar];
@@ -128,7 +146,8 @@
 {    
     [super viewDidLoad];
     mapTypeBar.alpha = 0;
-    wellSearch.alpha = 0;
+    searchField.alpha = 0;
+    gotFirstUserLocation = false;
 
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
