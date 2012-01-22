@@ -34,6 +34,9 @@
 - (IBAction)showMapTypeBar{         
     [UIToolbar animateWithDuration:0.2 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
 }
+- (IBAction)showRouteSearch {         
+    [UIView animateWithDuration:0.2 animations:^{[routeSearch setAlpha:!routeSearch.alpha];}];
+}
 
 - (IBAction)changeMapType:(id)sender{     
     [self showMapTypeBar];
@@ -96,6 +99,7 @@
         case 1:
             break;
         case 2:
+            [self showRouteSearch];
             break;
         case 3:
             [self showMapTypeBar];
@@ -106,7 +110,8 @@
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
-    mapTypeBar.alpha = 0;	
+    mapTypeBar.alpha = 0;
+    routeSearch.alpha = 0;
 
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
