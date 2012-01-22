@@ -23,6 +23,7 @@
 @interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
 {
     BOOL _doneInitialZoom;
+    BOOL gotFirstUserLocation;
     
     IBOutlet MKMapView *map;
     
@@ -38,9 +39,9 @@
     IBOutlet UIToolbar *mapTypeBar;
     IBOutlet UIToolbar *optionBar;
     
-    IBOutlet UIView *wellSearch;
+    IBOutlet UIView *searchField;
     IBOutlet UITextField *userLocationInput;
-    IBOutlet UINavigationItem *wellSearchHeadline;
+    IBOutlet UINavigationItem *searchHeadline;
     
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
@@ -50,7 +51,7 @@
 }
 
 -(IBAction)showMapTypeBar;
--(IBAction)showWellSearch : (int)buttonId;
+-(IBAction)showSearchField : (int)buttonId;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
 -(IBAction)showRoute;
