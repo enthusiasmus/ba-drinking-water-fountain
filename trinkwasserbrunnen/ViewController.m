@@ -37,7 +37,7 @@
 
 - (IBAction)changeMapType:(id)sender{     
     [self showMapTypeBar];
-    
+
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
     switch(index){
@@ -107,7 +107,7 @@
 {    
     [super viewDidLoad];
     mapTypeBar.alpha = 0;	
-    
+
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
     startLocation.longitude = 13.12042236;
@@ -133,33 +133,27 @@
     NSError *error;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"data.plist"];
+    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     if (![fileManager fileExistsAtPath:plistPath])
     {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"plist"];
+        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
         [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
     }
     
-    /* NSMutableArray *data = [[NSMutableArray alloc] initWithContentsOfFile:plistPath];
-     NSLog(@"Inhalt: %@", data);
-     
-     NSDictionary *claimlist = [data objectAtIndex:0];*/
     allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     NSLog(@"Inhalt: %@", allData);
     
-    nameData = [allData objectForKey:@"Brunnen"];
+    nameData = [allData objectForKey:@"Brunnen1"];
     NSLog(@"Brunnen: %@", nameData);
-    // NSMutableArray *array = [allData objectForKey:@"Brunnen"];
-    //NSLog(@"Brunnen: %@", array);
     
     NSString *Latitude = [nameData objectForKey:@"Latitude"];
     NSString *Longitude = [nameData objectForKey:@"Longitude"];
     
-    location.latitude = [Latitude doubleValue];
-    location.longitude = [Longitude doubleValue];
+    location.latitude = [Latitude doubleValue];//37.58492206;
+    location.longitude = [Longitude doubleValue];//-122.32237816;
     region.span=span;
     region.center=location;
     
@@ -185,7 +179,7 @@
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
 }
-
+    
 - (void)viewDidUnload
 {
     [super viewDidUnload];
