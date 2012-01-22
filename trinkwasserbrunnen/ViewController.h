@@ -15,12 +15,12 @@
 {
     CLLocationCoordinate2D coordinate;
 }
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 -(id)initWithLocation:(CLLocationCoordinate2D)coord;
 
 @end
 
-@interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate>
+@interface ViewController : UIViewController <MKMapViewDelegate, UITabBarDelegate, UITextFieldDelegate>
 {
     BOOL _doneInitialZoom;
     BOOL gotFirstUserLocation;
@@ -64,6 +64,6 @@
 -(IBAction) setMarkers;
 -(NSMutableArray *)decodePolyline: (NSMutableString *)encoded;
 -(void)createPolyline: (NSMutableArray *)allpoints;
-
+// -(BOOL) textFieldShouldReturn:(UITextField *)textField;
 
 @end

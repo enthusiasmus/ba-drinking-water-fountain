@@ -7,9 +7,7 @@
 //
 
 #import "ViewController.h"
-
 @implementation AddressAnnotation
-
 @synthesize coordinate;
 
 -(id)initWithCoordinate:(CLLocationCoordinate2D) c
@@ -41,7 +39,7 @@
         [tabBar setSelectedItem:nil];
     }
 }
-- (IBAction)showSearchField : (int)buttonId {     
+- (IBAction)showSearchField:(int)buttonId {     
     //set alpha of mapTypeBar 0 when searching for the next fontaint
     if (mapTypeBar.alpha != 0)
         [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
@@ -54,14 +52,22 @@
     
     if(buttonId == 1){
         searchHeadline.title = @"Trinken";
-        // TODO: nähesten Trinkwasserbrunnen anzeigen
     }
     else if(buttonId == 2){
-         searchHeadline.title = @"Route";
-         // TODO: Route zum nähesten Trinkwasserbrunnen anzeigen
+        searchHeadline.title = @"Route";
     }
 }
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    // hide keyboard and search field after pressing the "route" button
+    [textField resignFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha:0];}];
+    
+    // TODO: Funktionen, die Trinkwasserbrunnen bzw. Route anzeigen, hier aufrufen!
+    
+    [tabBar setSelectedItem:nil]; // FRAGE: wollen wir, dass hier der Aktiv-Status gleich verschwindet?
+    return YES;
+}
 - (IBAction)changeMapType:(id)sender{        
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
@@ -139,6 +145,19 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    if (tabBar.selectedItem.tag == 0){
+        [tabBar setSelectedItem:nil];
+    }
+}
+
+-(IBAction) showRoute
+{
+    NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv", userLocationInput];
+    NSString *locationString = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:urlString]];
+    NSLog(locationString);
+}
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
@@ -153,6 +172,7 @@
     
     map.delegate = self;
     tabBar.delegate = self;
+    userLocationInput.delegate = self;
     
     [self showRoute: @"Salzburg" andDestination: @"Urstein Süd 1" andMode: @"walking"];
 }
@@ -313,7 +333,6 @@
     return overlayView;
 }
 
-
 - (IBAction) setMarkers
 {
     //ToDo: Mehrere Markers plazieren
@@ -363,6 +382,12 @@
     
     [map setRegion:region animated:TRUE];
     [map regionThatFits:region];
+    
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    ;
 }
 
 - (MKAnnotationView *) map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>) annotation
@@ -370,7 +395,9 @@
     MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
     annView.pinColor = MKPinAnnotationColorGreen;
     annView.animatesDrop=TRUE;
-    annView.canShowCallout = YES;
+    //annView.canShowCallout = YES;
+    [annView setSelected:YES];
+    [annView addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
     annView.calloutOffset = CGPointMake(-5, 5);
     return annView;
 }

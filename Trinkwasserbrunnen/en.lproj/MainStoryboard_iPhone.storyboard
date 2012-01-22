@@ -62,14 +62,14 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="route"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="route" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <navigationBar contentMode="scaleToFill" id="a9I-pG-o9T">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <items>
-                                            <navigationItem title="Route" id="idM-8w-lBB"/>
+                                            <navigationItem title="SearchInput" id="idM-8w-lBB"/>
                                         </items>
                                     </navigationBar>
                                 </subviews>
