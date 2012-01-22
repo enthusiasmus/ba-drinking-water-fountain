@@ -56,7 +56,7 @@
         searchHeadline.title = @"Trinken";
     }
     else if(buttonId == 2){
-         searchHeadline.title = @"Route";
+        searchHeadline.title = @"Route";
     }
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -67,6 +67,7 @@
     
     // TODO: Funktionen, die Trinkwasserbrunnen bzw. Route anzeigen, hier aufrufen!
     
+    [tabBar setSelectedItem:nil]; // FRAGE: wollen wir, dass hier der Aktiv-Status gleich verschwindet?
     return YES;
 }
 - (IBAction)changeMapType:(id)sender{        
@@ -145,6 +146,12 @@
     }
 }
 
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
+    if (tabBar.selectedItem.tag == 0){
+        [tabBar setSelectedItem:nil];
+    }
+}
+
 -(IBAction) showRoute
 {
     NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv", userLocationInput];
@@ -157,9 +164,6 @@
     mapTypeBar.alpha = 0;
     searchField.alpha = 0;
     gotFirstUserLocation = false;
-    
-    //userLocationInput.returnKeyType = UIReturnKeyRoute;
-    userLocationInput.delegate = self;
 
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
@@ -168,10 +172,10 @@
     
     map.delegate = self;
     tabBar.delegate = self;
+    userLocationInput.delegate = self;
     
     [self setMarkers];
 }
-
 - (IBAction) setMarkers
 {
     //ToDo: Mehrere Markers plazieren
