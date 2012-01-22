@@ -154,7 +154,7 @@
     map.delegate = self;
     tabBar.delegate = self;
     
-    [self showRoute: @"Naumanngasse" andDestination: @"Egger-Lienz-Gasse" andMode: @"walking"];
+    [self showRoute: @"Salzburg" andDestination: @"Urstein Süd 1" andMode: @"walking"];
 }
 
 /* 
@@ -166,7 +166,7 @@
     
     NSString *urlBeginn = @"https://maps.googleapis.com/maps/api/directions/json?origin=";
     NSString *urlEnd = @"&units=metric&sensor=true";
-    NSString *url = [NSString stringWithFormat:@"%@/%@/%@", urlBeginn, start, @",AT&destination=", destination, @",AT&mode=", mode, urlEnd];
+    NSString *url = [NSString stringWithFormat:@"%@/%@/%@/%@/%@/%@/%@", urlBeginn, start, @",AT&destination=", destination, @",AT&mode=", mode, urlEnd];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [[NSURLConnection alloc] initWithRequest:request delegate:self];
     NSLog(@"showROUTE");
@@ -267,7 +267,7 @@
     
     for(int idx = 0; idx < allpoints.count; idx++)
     {
-        NSLog(@"3 match");CLLocation *currentLoc = [allpoints objectAtIndex:idx];
+        CLLocation *currentLoc = [allpoints objectAtIndex:idx];
             
         MKMapPoint point = MKMapPointForCoordinate(currentLoc.coordinate);
         
