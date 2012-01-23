@@ -65,7 +65,16 @@
 -(void)createPolyline: (NSMutableArray *)allpoints;
 - (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSMutableArray*) fontains;
 // -(BOOL) textFieldShouldReturn:(UITextField *)textField;
-- (NSString*)getReverseGecoding;
-- (CLLocationCoordinate2D)getForwardGecoding;
+- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location;
+- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location;
 
+@end
+
+//class for creating annotation instances
+@interface FontainAnnotation : NSObject <MKAnnotation> {
+    CLLocationCoordinate2D coordinate;
+    UIImage *image;
+}
+@property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
+- (id)initWithLocation:(CLLocationCoordinate2D)coord;
 @end

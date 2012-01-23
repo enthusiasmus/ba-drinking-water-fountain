@@ -44,6 +44,10 @@
     else if(buttonId == 2){
         searchHeadline.title = @"Route";
     }
+    
+    if(buttonId == 1 || buttonId == 2)
+        if(map.userLocation.location)
+            userInput.text = @"User Location verwenden";
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -54,6 +58,12 @@
     // TODO: Funktionen, die Trinkwasserbrunnen bzw. Route anzeigen, hier aufrufen!
     
     NSLog(@"getting route");
+    
+    if(textField.text == @"User Location verwenden"){
+        NSString *currentAdress = [self getReverseGecoding: CLLocationCoordinate2DMake(map.userLocation.location.coordinate.latitude, map.userLocation.location.coordinate.longitude)];
+        [self showRoute: currentAdress andDestination: userInput.text andMode: @"walking"];
+    }
+    
     [self showRoute: @"Naumanngasse" andDestination: userInput.text andMode: @"walking"];
     
     return YES;
@@ -141,10 +151,10 @@
     }
 }
 
-- (CLLocationCoordinate2D)getForwardGecoding{
+- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location{
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     __block CLPlacemark *placemark;
-    [geocoder geocodeAddressString:@"Unter den Linden 7, 10117 Berlin, Deutschland" completionHandler:^(NSArray *placemarks, NSError *error) {
+    [geocoder geocodeAddressString:location completionHandler:^(NSArray *placemarks, NSError *error) {
         
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
@@ -182,6 +192,10 @@
     return adress;
 }
 
+- (void)addMarkers{
+    
+}
+
 - (void)viewDidLoad
 {    
     [super viewDidLoad];
@@ -197,6 +211,11 @@
     map.delegate = self;
     tabBar.delegate = self;
     userInput.delegate = self;
+    
+    //create an annotation
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([@"47.800242" floatValue], [@"13.046894" floatValue]);       
+    FontainAnnotation *annotation = [[FontainAnnotation alloc] initWithLocation:coordinate];
+    [map addAnnotation: annotation];  
     
     //get nearest fontains
     //for testing use because till now we can't read out of the plist
@@ -422,6 +441,56 @@
     
     return overlayView;
 }
+@end
 
 
+/*
+ * Implementing annotation logic
+ */
+
+@implementation FontainAnnotation
+@synthesize coordinate;
+
+- (id)initWithLocation:(CLLocationCoordinate2D)coord {
+    self = [super init];
+    if (self) {
+        coordinate = coord;
+    }
+    return self;
+}
+
+- (MKAnnotationView *)map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    // If it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[FontainAnnotation class]])
+    {
+        // Try to dequeue an existing pin view first.
+        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[map dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        
+        if (!pinView)
+        {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotation"];
+            pinView.pinColor = MKPinAnnotationColorPurple;
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+            
+            // Add a detail disclosure button to the callout
+            UIButton* rightButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:self action:@selector(myShowDetailsMethod:)
+                  forControlEvents:UIControlEventTouchUpInside];
+            pinView.rightCalloutAccessoryView = rightButton;
+        }
+        else
+            pinView.annotation = annotation;
+        
+        return pinView;
+    }
+    
+    return nil;
+}
 @end
