@@ -7,18 +7,6 @@
 //
 
 #import "ViewController.h"
-@implementation AddressAnnotation
-@synthesize coordinate;
-
--(id)initWithCoordinate:(CLLocationCoordinate2D) c
-{
-    coordinate=c;
-    NSLog(@"%f,%f",c.latitude,c.longitude);
-    return self;
-}
-
-@end
-
 @implementation ViewController
 
 - (void)didReceiveMemoryWarning
@@ -153,11 +141,45 @@
     }
 }
 
--(IBAction)showRoute
-{
-    /*NSString *urlString = [NSString stringWithFormat:@"http://maps.google.com/maps/geo?q=%@&output=csv", userInput];
-    NSString *locationString = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:urlString]];
-    NSLog(locationString);*/
+- (CLLocationCoordinate2D)getForwardGecoding{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    __block CLPlacemark *placemark;
+    [geocoder geocodeAddressString:@"Unter den Linden 7, 10117 Berlin, Deutschland" completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {        
+            if ([placemarks count] > 0) {
+                placemark = [placemarks objectAtIndex:0];
+                NSLog(@"Latitude: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.latitude] stringValue]);
+                NSLog(@"Longitued: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] stringValue]);
+                
+            }       
+        }
+    }];
+    return CLLocationCoordinate2DMake([[NSNumber numberWithDouble:placemark.location.coordinate.latitude] floatValue], [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] floatValue]);
+}
+
+- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *locLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+    __block CLPlacemark *placemark;
+    
+    [geocoder reverseGeocodeLocation:locLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            if ([placemarks count] > 0) {
+                placemark = [placemarks objectAtIndex:0];
+                NSLog(@"%@", placemark.postalCode);
+                NSLog(@"%@", placemark.locality);
+                NSLog(@"%@", placemark.thoroughfare);
+                NSLog(@"%@", placemark.subThoroughfare);
+            }      
+        }
+    }];
+    NSString *adress = [NSString stringWithFormat:@"%@ /%@ /%@ /%@", placemark.postalCode, placemark.locality, placemark.thoroughfare, placemark.subThoroughfare];
+    return adress;
 }
 
 - (void)viewDidLoad
@@ -175,75 +197,37 @@
     map.delegate = self;
     tabBar.delegate = self;
     userInput.delegate = self;
+    
+    //get nearest fontains
+    //for testing use because till now we can't read out of the plist
+    /*NSMutableArray* fontain;
+    
+    CLLocation *firstFontain = [[CLLocation alloc] initWithLatitude:[@"47.80474" floatValue] longitude:[@"13.05705" floatValue]]; 
+    CLLocation *secondFontain = [[CLLocation alloc] initWithLatitude:[@"47.787672" floatValue] longitude:[@"13.045549" floatValue]]; 
+    
+    [fontain addObject:firstFontain];
+    [fontain insertObject:secondFontain atIndex:0];
+    
+    [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
 }
 
-- (IBAction) setMarkers
-{
-    //ToDo: Mehrere Markers plazieren
+- (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSArray*) fontains{
+    CLLocation *startLoc = [[CLLocation alloc] initWithLatitude:startLocation.latitude longitude:startLocation.longitude]; 
     
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    span.latitudeDelta=0.2;
-    span.longitudeDelta=0.2;
+    NSLog(@"%@", fontains);
     
-    CLLocationCoordinate2D location; 
+    if(!fontains || !fontains.count)
+        return CLLocationCoordinate2DMake(0, 0);
     
-    NSError *error;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *plistPath = [documentsDirectory stringByAppendingPathComponent:@"Coordinates.plist"];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    if (![fileManager fileExistsAtPath:plistPath])
-    {
-        NSString *bundle = [[NSBundle mainBundle] pathForResource:@"Coordinates" ofType:@"plist"];
-        [fileManager copyItemAtPath:bundle toPath:plistPath error:&error];
+    CLLocation *nearestFontain = [fontains objectAtIndex:0];
+    for(int x=0; x<fontains.count; x++){
+        if([startLoc distanceFromLocation:[fontains objectAtIndex:x]] > [startLoc distanceFromLocation:nearestFontain])
+            nearestFontain = [fontains objectAtIndex:x];
     }
     
-    allData = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
-    NSLog(@"Inhalt: %@", allData);
+    NSLog(@"%@", nearestFontain);
     
-    nameData = [allData objectForKey:@"Brunnen1"];
-    NSLog(@"Brunnen: %@", nameData);
-    
-    NSString *Latitude = [nameData objectForKey:@"Latitude"];
-    NSString *Longitude = [nameData objectForKey:@"Longitude"];
-    
-    location.latitude = [Latitude doubleValue];//37.58492206;
-    location.longitude = [Longitude doubleValue];//-122.32237816;
-    region.span=span;
-    region.center=location;
-    
-    if(addAnnotation != nil)
-    {
-        [map removeAnnotation:addAnnotation];
-        addAnnotation = nil;
-    }
-    
-    addAnnotation = [[AddressAnnotation alloc] initWithCoordinate:location];
-    [map addAnnotation:addAnnotation];
-    
-    [map setRegion:region animated:TRUE];
-    [map regionThatFits:region];
-    
-}
-
--(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    ;
-}
-
-- (MKAnnotationView *) map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>) annotation
-{
-    MKPinAnnotationView *annView=[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"currentloc"];
-    annView.pinColor = MKPinAnnotationColorGreen;
-    annView.animatesDrop=TRUE;
-    //annView.canShowCallout = YES;
-    [annView setSelected:YES];
-    [annView addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:nil];
-    annView.calloutOffset = CGPointMake(-5, 5);
-    return annView;
+    return CLLocationCoordinate2DMake(nearestFontain.coordinate.latitude, nearestFontain.coordinate.longitude);
 }
     
 - (void)viewDidUnload
@@ -430,7 +414,7 @@
         if(nil == polylineOverLayerView){
             polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
             polylineOverLayerView.fillColor = [UIColor blueColor];
-            polylineOverLayerView.strokeColor = [UIColor redColor];
+            polylineOverLayerView.strokeColor = [UIColor blueColor];
             polylineOverLayerView.lineWidth = 6;
         }
         overlayView = polylineOverLayerView;

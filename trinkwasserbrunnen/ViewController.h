@@ -27,8 +27,6 @@
     
     IBOutlet MKMapView *map;
     
-    AddressAnnotation *addAnnotation;
-
     //for map
     IBOutlet UIBarButtonItem *mapTypeStandard;
     IBOutlet UIBarButtonItem *mapTypeSatellite;
@@ -65,6 +63,9 @@
 -(IBAction) setMarkers;
 -(NSMutableArray *)decodePolyline: (NSMutableString *)encoded;
 -(void)createPolyline: (NSMutableArray *)allpoints;
+- (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSMutableArray*) fontains;
 // -(BOOL) textFieldShouldReturn:(UITextField *)textField;
+- (NSString*)getReverseGecoding;
+- (CLLocationCoordinate2D)getForwardGecoding;
 
 @end

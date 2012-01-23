@@ -85,6 +85,7 @@
                         <outlet property="mapTypeSatellite" destination="mHO-4P-Ju7" id="ISB-l1-gY3"/>
                         <outlet property="mapTypeStandard" destination="jZS-v8-3ue" id="OSW-gE-t9K"/>
                         <outlet property="searchField" destination="w6H-MY-ULe" id="xM2-bG-30P"/>
+                        <outlet property="searchHeadline" destination="idM-8w-lBB" id="rG5-tT-Xmo"/>
                         <outlet property="tabBar" destination="qHb-6T-U7h" id="KhX-FY-9Ia"/>
                         <outlet property="userInput" destination="e9a-AF-3H0" id="SGc-kC-fOe"/>
                     </connections>
