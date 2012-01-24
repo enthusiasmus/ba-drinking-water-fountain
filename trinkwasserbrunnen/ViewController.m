@@ -9,13 +9,9 @@
 #import "ViewController.h"
 @implementation ViewController
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
-
-#pragma mark - View lifecycle
+/*
+ * User Interface functions
+ */
 
 - (IBAction)showMapTypeBar{   
     //set alpha of searchField 0 when mapTypeBar is enabled
@@ -60,7 +56,7 @@
     NSLog(@"getting route");
     
     if(textField.text == @"User Location verwenden"){
-        NSString *currentAdress = [self getReverseGecoding: CLLocationCoordinate2DMake(map.userLocation.location.coordinate.latitude, map.userLocation.location.coordinate.longitude)];
+        NSString *currentAdress = [Helper getReverseGecoding: CLLocationCoordinate2DMake(map.userLocation.location.coordinate.latitude, map.userLocation.location.coordinate.longitude)];
         [self showRoute: currentAdress andDestination: userInput.text andMode: @"walking"];
     }
     
@@ -68,6 +64,7 @@
     
     return YES;
 }
+
 - (IBAction)changeMapType:(id)sender{        
     UIBarButtonItem *button = (UIBarButtonItem*)sender;
     int index = (int)button.tag;
@@ -113,11 +110,19 @@
     }
 }
 
+/*
+ * Helping functions for working with the map
+ */
+
 - (void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location{
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location, zoomLevel*METERS_PER_MILE, zoomLevel*METERS_PER_MILE);
     MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
     [map setRegion:adjustedRegion animated:YES];
 }
+
+/*
+ * Delegated functions
+ */
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     if(!gotFirstUserLocation){
@@ -151,50 +156,28 @@
     }
 }
 
-- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location{
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    __block CLPlacemark *placemark;
-    [geocoder geocodeAddressString:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-        } else {        
-            if ([placemarks count] > 0) {
-                placemark = [placemarks objectAtIndex:0];
-                NSLog(@"Latitude: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.latitude] stringValue]);
-                NSLog(@"Longitued: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] stringValue]);
-                
-            }       
+- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id )overlay
+{
+    MKOverlayView* overlayView = nil;
+    if(overlay == currentRoute)
+    {
+        //if we have not yet created an overlay view for this overlay, create it now.
+        if(nil == polylineOverLayerView){
+            polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
+            polylineOverLayerView.fillColor = [UIColor blueColor];
+            polylineOverLayerView.strokeColor = [UIColor redColor];
+            polylineOverLayerView.opaque = 0.5;
+            polylineOverLayerView.lineWidth = 6;
         }
-    }];
-    return CLLocationCoordinate2DMake([[NSNumber numberWithDouble:placemark.location.coordinate.latitude] floatValue], [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] floatValue]);
+        overlayView = polylineOverLayerView;
+    }
+    
+    return overlayView;
 }
 
-- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location{
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    CLLocation *locLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
-    __block CLPlacemark *placemark;
-    
-    [geocoder reverseGeocodeLocation:locLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (error != nil) {
-            NSLog(@"%@", [error localizedDescription]);
-        } else {
-            if ([placemarks count] > 0) {
-                placemark = [placemarks objectAtIndex:0];
-                NSLog(@"%@", placemark.postalCode);
-                NSLog(@"%@", placemark.locality);
-                NSLog(@"%@", placemark.thoroughfare);
-                NSLog(@"%@", placemark.subThoroughfare);
-            }      
-        }
-    }];
-    NSString *adress = [NSString stringWithFormat:@"%@ /%@ /%@ /%@", placemark.postalCode, placemark.locality, placemark.thoroughfare, placemark.subThoroughfare];
-    return adress;
-}
-
-- (void)addMarkers{
-    
-}
+/*
+ * Project auto added functions
+ */
 
 - (void)viewDidLoad
 {    
@@ -202,7 +185,7 @@
     mapTypeBar.alpha = 0;
     searchField.alpha = 0;
     gotFirstUserLocation = false;
-
+    
     CLLocationCoordinate2D startLocation;
     startLocation.latitude = 47.45966555;
     startLocation.longitude = 13.12042236;
@@ -220,33 +203,20 @@
     //get nearest fontains
     //for testing use because till now we can't read out of the plist
     /*NSMutableArray* fontain;
-    
-    CLLocation *firstFontain = [[CLLocation alloc] initWithLatitude:[@"47.80474" floatValue] longitude:[@"13.05705" floatValue]]; 
-    CLLocation *secondFontain = [[CLLocation alloc] initWithLatitude:[@"47.787672" floatValue] longitude:[@"13.045549" floatValue]]; 
-    
-    [fontain addObject:firstFontain];
-    [fontain insertObject:secondFontain atIndex:0];
-    
-    [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
+     
+     CLLocation *firstFontain = [[CLLocation alloc] initWithLatitude:[@"47.80474" floatValue] longitude:[@"13.05705" floatValue]]; 
+     CLLocation *secondFontain = [[CLLocation alloc] initWithLatitude:[@"47.787672" floatValue] longitude:[@"13.045549" floatValue]]; 
+     
+     [fontain addObject:firstFontain];
+     [fontain insertObject:secondFontain atIndex:0];
+     
+     [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
 }
 
-- (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSArray*) fontains{
-    CLLocation *startLoc = [[CLLocation alloc] initWithLatitude:startLocation.latitude longitude:startLocation.longitude]; 
-    
-    NSLog(@"%@", fontains);
-    
-    if(!fontains || !fontains.count)
-        return CLLocationCoordinate2DMake(0, 0);
-    
-    CLLocation *nearestFontain = [fontains objectAtIndex:0];
-    for(int x=0; x<fontains.count; x++){
-        if([startLoc distanceFromLocation:[fontains objectAtIndex:x]] > [startLoc distanceFromLocation:nearestFontain])
-            nearestFontain = [fontains objectAtIndex:x];
-    }
-    
-    NSLog(@"%@", nearestFontain);
-    
-    return CLLocationCoordinate2DMake(nearestFontain.coordinate.latitude, nearestFontain.coordinate.longitude);
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
 }
     
 - (void)viewDidUnload
@@ -286,6 +256,10 @@
     }
 }
 
+/*
+ * Everything for getting a required route
+ */
+
 -(IBAction) showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode{
     responseData = [NSMutableData data];
     
@@ -293,7 +267,7 @@
     NSString *urlEnd = @"&units=metric&sensor=true";
     NSString *url = [NSString stringWithFormat:@"%@/%@/%@/%@/%@/%@/%@", urlBeginn, start, @",AT&destination=", destination, @",AT&mode=", mode, urlEnd];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    (void) [[NSURLConnection alloc] initWithRequest:request delegate:self];
     NSLog(@"showROUTE");
 }
 
@@ -344,7 +318,4 @@
     [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
     [map addOverlay: currentRoute];
 }
-
-
 @end
-

@@ -12,7 +12,7 @@
 @implementation Route
 
 //encode the routes part of responsed json
--(NSMutableArray *)decodePolyline: (NSMutableString *)encodedStr {
++(NSMutableArray *)decodePolyline: (NSMutableString *)encodedStr {
     NSMutableString *encoded = [[NSMutableString alloc] initWithCapacity:[encodedStr length]];  
     [encoded appendString:encodedStr];  
     NSInteger len = [encoded length];  
@@ -48,7 +48,7 @@
     return array;  
 }
 
-- (MKPolyline *) createPolyline: (NSMutableArray *)allpoints{   
++ (MKPolyline *) createPolyline: (NSMutableArray *)allpoints{   
     MKMapPoint* pointArr = malloc(sizeof(CLLocationCoordinate2D) * allpoints.count);
     
     for(int idx = 0; idx < allpoints.count; idx++)
@@ -57,11 +57,11 @@
         MKMapPoint point = MKMapPointForCoordinate(currentLoc.coordinate);
         pointArr[idx] = point;
     }
-    currentRoute = [MKPolyline polylineWithPoints:pointArr count:allpoints.count];
+    MKPolyline* currentRoute = [MKPolyline polylineWithPoints:pointArr count:allpoints.count];
     
     return currentRoute;
 }
-- (MKMapRect) createMapRect: (NSMutableArray *)allpoints{
++ (MKMapRect) createMapRect: (NSMutableArray *)allpoints{
     // while we create the route points, we will also be calculating the bounding box of our route
     // so we can easily zoom in on it.
     MKMapPoint northEastPoint;
@@ -91,27 +91,8 @@
         }
     }
 
-    currentMapRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, northEastPoint.x - southWestPoint.x, northEastPoint.y - southWestPoint.y);
+    MKMapRect currentMapRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, northEastPoint.x - southWestPoint.x, northEastPoint.y - southWestPoint.y);
 
     return currentMapRect;
-}
-
-
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id )overlay
-{
-    MKOverlayView* overlayView = nil;
-    if(overlay == currentRoute)
-    {
-        //if we have not yet created an overlay view for this overlay, create it now.
-        if(nil == polylineOverLayerView){
-            polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
-            polylineOverLayerView.fillColor = [UIColor blueColor];
-            polylineOverLayerView.strokeColor = [UIColor blueColor];
-            polylineOverLayerView.lineWidth = 6;
-        }
-        overlayView = polylineOverLayerView;
-    }
-    
-    return overlayView;
 }
 @end

@@ -14,6 +14,7 @@
 		F26474CA14CA06F200D392BE /* map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474C914CA06F200D392BE /* map-marker.png */; };
 		F26474CC14CA070000D392BE /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474CB14CA070000D392BE /* map.png */; };
 		F26474CE14CA076200D392BE /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474CD14CA076200D392BE /* water.png */; };
+		F2755A9614CF01E200FE92D3 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2755A9514CF01E200FE92D3 /* Helper.m */; };
 		F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F27DCD6A14C5FAED00EC38FF /* icon.jpg */; };
 		F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11714A1E7EB00E6E619 /* UIKit.framework */; };
 		F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11914A1E7EB00E6E619 /* Foundation.framework */; };
@@ -49,6 +50,8 @@
 		F26474C914CA06F200D392BE /* map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map-marker.png"; sourceTree = "<group>"; };
 		F26474CB14CA070000D392BE /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		F26474CD14CA076200D392BE /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
+		F2755A9414CF01E200FE92D3 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
+		F2755A9514CF01E200FE92D3 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		F27DCD6A14C5FAED00EC38FF /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
 		F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trinkwasserbrunnen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F282C11714A1E7EB00E6E619 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -157,11 +160,13 @@
 				F282C12C14A1E7EB00E6E619 /* MainStoryboard_iPad.storyboard */,
 				F282C12F14A1E7EC00E6E619 /* ViewController.h */,
 				F282C13014A1E7EC00E6E619 /* ViewController.m */,
-				F282C11E14A1E7EB00E6E619 /* Supporting Files */,
 				F2BE345714CEC3FE00775CA2 /* Route.h */,
 				F2BE345814CEC3FE00775CA2 /* Route.m */,
 				F2BE345B14CEC6BF00775CA2 /* Annotation.h */,
 				F2BE345C14CEC6BF00775CA2 /* Annotation.m */,
+				F2755A9414CF01E200FE92D3 /* Helper.h */,
+				F2755A9514CF01E200FE92D3 /* Helper.m */,
+				F282C11E14A1E7EB00E6E619 /* Supporting Files */,
 			);
 			path = Trinkwasserbrunnen;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				F288526014CC4CC800C5A0FC /* SBJsonWriter.m in Sources */,
 				F2BE345914CEC3FE00775CA2 /* Route.m in Sources */,
 				F2BE345D14CEC6BF00775CA2 /* Annotation.m in Sources */,
+				F2755A9614CF01E200FE92D3 /* Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

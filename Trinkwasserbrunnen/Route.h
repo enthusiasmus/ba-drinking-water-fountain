@@ -9,14 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-@interface Route : NSObject {
-    MKMapRect currentMapRect;
-    MKPolyline* currentRoute;
-    MKPolylineView* polylineOverLayerView;
-}
+@interface Route : NSObject
 
-
-+(NSMutableArray *)decodePolyline: (NSMutableString *)encoded;
++(NSMutableArray *)decodePolyline: (NSMutableString *)encodedStr;
 +(MKPolyline *)createPolyline: (NSMutableArray *)allpoints;
 +(MKMapRect)createMapRect: (NSMutableArray *)allpoints;
 
