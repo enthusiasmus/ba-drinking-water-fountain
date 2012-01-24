@@ -1,14 +1,16 @@
 //
 //  ViewController.h
-//  Trinkwasserbrunnen
+//  AquaJuvavum
 //
-//  Created by Mahmood1 on 12/21/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by N. Buchegger, L. Wanko, B. Huber.
+//  Copyright (c) 2012 FH Salzburg. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 #import "JSON/SBJson.h"
+#import "Annotation.h"
+#import "Route.h"
+
 #define METERS_PER_MILE 1609.344
 
 @interface AddressAnnotation : NSObject <MKAnnotation>
@@ -46,35 +48,20 @@
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
     
-    //for routing
+    //for route
     NSMutableData* responseData;
     MKPolyline* currentRoute;
-    MKMapRect currentMapRect;
-    MKPolylineView* polylineOverLayerView;
 }
 
 -(IBAction)showMapTypeBar;
 -(IBAction)showSearchField : (int)buttonId;
 -(IBAction)changeMapType:(id)sender;
 -(IBAction)showUserLocation;
--(IBAction)showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode;
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
 -(IBAction) setMarkers;
--(NSMutableArray *)decodePolyline: (NSMutableString *)encoded;
--(void)createPolyline: (NSMutableArray *)allpoints;
 - (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSMutableArray*) fontains;
-// -(BOOL) textFieldShouldReturn:(UITextField *)textField;
 - (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location;
 - (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location;
-
-@end
-
-//class for creating annotation instances
-@interface FontainAnnotation : NSObject <MKAnnotation> {
-    CLLocationCoordinate2D coordinate;
-    UIImage *image;
-}
-@property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
-- (id)initWithLocation:(CLLocationCoordinate2D)coord;
+-(IBAction)showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode;
 @end

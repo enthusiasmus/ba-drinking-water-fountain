@@ -1,9 +1,9 @@
 //
 //  ViewController.m
-//  Trinkwasserbrunnen
+//  AquaJuvavum
 //
-//  Created by Mahmood1 on 12/21/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by N. Buchegger, L. Wanko, B. Huber.
+//  Copyright (c) 2012 FH Salzburg. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -214,7 +214,7 @@
     
     //create an annotation
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([@"47.800242" floatValue], [@"13.046894" floatValue]);       
-    FontainAnnotation *annotation = [[FontainAnnotation alloc] initWithLocation:coordinate];
+    Annotation *annotation = [[Annotation alloc] initWithLocation:coordinate];
     [map addAnnotation: annotation];  
     
     //get nearest fontains
@@ -286,10 +286,6 @@
     }
 }
 
-/* 
- * Make an JSON Quest on Google Directions, handle the data and display it
- */
-
 -(IBAction) showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode{
     responseData = [NSMutableData data];
     
@@ -339,158 +335,16 @@
     for(NSDictionary* step in steps) {
         NSDictionary *polyline = [step objectForKey:@"polyline"];
         NSMutableString *encodedVal = [polyline objectForKey:@"points"];
-        NSArray *points = [self decodePolyline:encodedVal];
+        NSArray *points = [Route decodePolyline:encodedVal];
         [allPoints addObjectsFromArray:points];
     }
     
-    [self createPolyline: allPoints];
+    currentRoute = [Route createPolyline: allPoints];
+    MKMapRect currentMapRect = [Route createMapRect: allPoints];
+    [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
     [map addOverlay: currentRoute];
 }
 
-//encode the routes part of responsed json
--(NSMutableArray *)decodePolyline: (NSMutableString *)encodedStr {
-    NSMutableString *encoded = [[NSMutableString alloc] initWithCapacity:[encodedStr length]];  
-    [encoded appendString:encodedStr];  
-    NSInteger len = [encoded length];  
-    NSInteger index = 0;  
-    NSMutableArray *array = [[NSMutableArray alloc] init];  
-    NSInteger lat=0;  
-    NSInteger lng=0;  
-    while (index < len) {  
-        NSInteger b;  
-        NSInteger shift = 0;  
-        NSInteger result = 0;  
-        do {  
-            b = [encoded characterAtIndex:index++] - 63;  
-            result |= (b & 0x1f) << shift;  
-            shift += 5;  
-        } while (b >= 0x20);  
-        NSInteger dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));  
-        lat += dlat;  
-        shift = 0;  
-        result = 0;  
-        do {  
-            b = [encoded characterAtIndex:index++] - 63;  
-            result |= (b & 0x1f) << shift;  
-            shift += 5;  
-        } while (b >= 0x20);  
-        NSInteger dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));  
-        lng += dlng;  
-        NSNumber *latitude = [[NSNumber alloc] initWithFloat:lat * 1e-5];  
-        NSNumber *longitude = [[NSNumber alloc] initWithFloat:lng * 1e-5];  
-        CLLocation *loc = [[CLLocation alloc] initWithLatitude:[latitude floatValue] longitude:[longitude floatValue]];  
-        [array addObject:loc];  
-    }  
-    return array;  
-}
 
-- (void) createPolyline: (NSMutableArray *)allpoints{
-    // while we create the route points, we will also be calculating the bounding box of our route
-    // so we can easily zoom in on it.
-    MKMapPoint northEastPoint;
-    MKMapPoint southWestPoint;
-    
-    MKMapPoint* pointArr = malloc(sizeof(CLLocationCoordinate2D) * allpoints.count);
-    
-    for(int idx = 0; idx < allpoints.count; idx++)
-    {
-        CLLocation *currentLoc = [allpoints objectAtIndex:idx];
-        
-        MKMapPoint point = MKMapPointForCoordinate(currentLoc.coordinate);
-        
-        // if it is the first point, just use them, since we have till now nothing to compare
-        if (idx == 0) {
-            northEastPoint = point;
-            southWestPoint = point;
-        }
-        else
-        {
-            if (point.x > northEastPoint.x)
-                northEastPoint.x = point.x;
-            if(point.y > northEastPoint.y)
-                northEastPoint.y = point.y;
-            if (point.x < southWestPoint.x)
-                southWestPoint.x = point.x;
-            if (point.y < southWestPoint.y)
-                southWestPoint.y = point.y;
-        }
-        
-        pointArr[idx] = point;
-    }
-    
-    currentRoute = [MKPolyline polylineWithPoints:pointArr count:allpoints.count];
-    currentMapRect = MKMapRectMake(southWestPoint.x, southWestPoint.y, northEastPoint.x - southWestPoint.x, northEastPoint.y - southWestPoint.y);
-
-    [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
-}
-
-- (MKOverlayView *)mapView:(MKMapView *)mapView viewForOverlay:(id )overlay
-{
-    MKOverlayView* overlayView = nil;
-    if(overlay == currentRoute)
-    {
-        //if we have not yet created an overlay view for this overlay, create it now.
-        if(nil == polylineOverLayerView){
-            polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
-            polylineOverLayerView.fillColor = [UIColor blueColor];
-            polylineOverLayerView.strokeColor = [UIColor blueColor];
-            polylineOverLayerView.lineWidth = 6;
-        }
-        overlayView = polylineOverLayerView;
-    }
-    
-    return overlayView;
-}
 @end
 
-
-/*
- * Implementing annotation logic
- */
-
-@implementation FontainAnnotation
-@synthesize coordinate;
-
-- (id)initWithLocation:(CLLocationCoordinate2D)coord {
-    self = [super init];
-    if (self) {
-        coordinate = coord;
-    }
-    return self;
-}
-
-- (MKAnnotationView *)map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    // If it's the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil;
-    
-    // Handle any custom annotations.
-    if ([annotation isKindOfClass:[FontainAnnotation class]])
-    {
-        // Try to dequeue an existing pin view first.
-        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[map dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
-        
-        if (!pinView)
-        {
-            // If an existing pin view was not available, create one.
-            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotation"];
-            pinView.pinColor = MKPinAnnotationColorPurple;
-            pinView.animatesDrop = YES;
-            pinView.canShowCallout = YES;
-            
-            // Add a detail disclosure button to the callout
-            UIButton* rightButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-            [rightButton addTarget:self action:@selector(myShowDetailsMethod:)
-                  forControlEvents:UIControlEventTouchUpInside];
-            pinView.rightCalloutAccessoryView = rightButton;
-        }
-        else
-            pinView.annotation = annotation;
-        
-        return pinView;
-    }
-    
-    return nil;
-}
-@end
