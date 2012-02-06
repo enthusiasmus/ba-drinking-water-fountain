@@ -27,17 +27,23 @@
     
     //for screen
     IBOutlet UIView *searchField;
+    IBOutlet UIView *imprintView;
     IBOutlet UITextField *userInput;
     IBOutlet UINavigationItem *searchHeadline;
     IBOutlet UITabBar *tabBar;
     IBOutlet UIToolbar *mapTypeBar;
+    IBOutlet UINavigationItem *imprintHeadline;
+    IBOutlet UIBarButtonItem *backButton;
     
     //for markers
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
+    NSMutableArray *testFontains;
     
     //for route
     NSMutableData* responseData;
+    UIColor* polylineColor;
+    float polylineWidth;
     MKPolyline* currentRoute;
     MKPolylineView* polylineOverLayerView;
 }

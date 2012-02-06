@@ -2,46 +2,4 @@
 <Bucket
    type = "1"
    version = "1.0">
-   <FileBreakpoints>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         isPathRelative = "1"
-         filePath = "Trinkwasserbrunnen/ViewController.m"
-         timestampString = "349112113.826701"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "157"
-         endingLineNumber = "157"
-         landmarkName = "-getReverseGecoding:"
-         landmarkType = "5">
-         <Locations>
-            <Location
-               shouldBeEnabled = "Yes"
-               ignoreCount = "0"
-               continueAfterRunningActions = "No"
-               symbolName = "-[ViewController getReverseGecoding:]"
-               urlString = "file://localhost/Users/mahmood1/Documents/MobileApplications/trinkwasserbrunnen/Trinkwasserbrunnen/ViewController.m"
-               timestampString = "348977996.849898"
-               startingColumnNumber = "9223372036854775807"
-               endingColumnNumber = "9223372036854775807"
-               startingLineNumber = "178"
-               endingLineNumber = "178">
-            </Location>
-            <Location
-               shouldBeEnabled = "Yes"
-               ignoreCount = "0"
-               continueAfterRunningActions = "No"
-               symbolName = "__37-[ViewController getReverseGecoding:]_block_invoke_0"
-               urlString = "file://localhost/Users/mahmood1/Documents/MobileApplications/trinkwasserbrunnen/Trinkwasserbrunnen/ViewController.m"
-               timestampString = "348977996.850547"
-               startingColumnNumber = "9223372036854775807"
-               endingColumnNumber = "9223372036854775807"
-               startingLineNumber = "178"
-               endingLineNumber = "178">
-            </Location>
-         </Locations>
-      </FileBreakpoint>
-   </FileBreakpoints>
 </Bucket>

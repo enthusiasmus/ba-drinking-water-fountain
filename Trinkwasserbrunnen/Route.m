@@ -61,6 +61,7 @@
     
     return currentRoute;
 }
+
 + (MKMapRect) createMapRect: (NSMutableArray *)allpoints{
     // while we create the route points, we will also be calculating the bounding box of our route
     // so we can easily zoom in on it.

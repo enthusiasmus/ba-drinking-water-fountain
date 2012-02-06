@@ -13,6 +13,12 @@
  * User Interface functions
  */
 
+- (void)backToMap:(UIBarButtonItem *)myButton
+{
+    [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha: 0];}];
+    [tabBar setSelectedItem:nil];
+}
+
 - (IBAction)showMapTypeBar{   
     //set alpha of searchField 0 when mapTypeBar is enabled
     if (searchField.alpha != 0)
@@ -60,7 +66,12 @@
         [self showRoute: currentAdress andDestination: userInput.text andMode: @"walking"];
     }
     
-    [self showRoute: @"Naumanngasse" andDestination: userInput.text andMode: @"walking"];
+    //when user location is available and we want the route to the next fontain
+    CLLocationCoordinate2D nextFontain = [Helper getNextAnnotation: map.userLocation.location.coordinate andPointsToCheck: testFontains];
+    NSString* destination = [Helper getReverseGecoding: nextFontain];
+    NSString* start = [Helper getReverseGecoding: map.userLocation.location.coordinate];
+    
+    [self showRoute: start andDestination: destination andMode: @"walking"];
     
     return YES;
 }
@@ -147,6 +158,11 @@
         case 3:
             [self showMapTypeBar];
             break;
+        case 4:           
+            [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha:!imprintView.alpha];}];
+            if(imprintView.alpha == 0)
+                [self->tabBar setSelectedItem:nil];
+            break;
     }
 }
 
@@ -164,10 +180,8 @@
         //if we have not yet created an overlay view for this overlay, create it now.
         if(nil == polylineOverLayerView){
             polylineOverLayerView = [[MKPolylineView alloc] initWithPolyline: currentRoute];
-            polylineOverLayerView.fillColor = [UIColor blueColor];
-            polylineOverLayerView.strokeColor = [UIColor redColor];
-            polylineOverLayerView.opaque = 0.5;
-            polylineOverLayerView.lineWidth = 6;
+            polylineOverLayerView.lineWidth = polylineWidth;
+            polylineOverLayerView.strokeColor = polylineColor;
         }
         overlayView = polylineOverLayerView;
     }
@@ -184,6 +198,7 @@
     [super viewDidLoad];
     mapTypeBar.alpha = 0;
     searchField.alpha = 0;
+    imprintView.alpha = 0;
     gotFirstUserLocation = false;
     
     CLLocationCoordinate2D startLocation;
@@ -198,7 +213,14 @@
     //create an annotation
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([@"47.800242" floatValue], [@"13.046894" floatValue]);       
     Annotation *annotation = [[Annotation alloc] initWithLocation:coordinate];
-    [map addAnnotation: annotation];  
+    [map addAnnotation: annotation];
+    
+    CLLocationCoordinate2D coordinate2 = CLLocationCoordinate2DMake([@"47.900242" floatValue], [@"13.146894" floatValue]);       
+    Annotation *annotation2 = [[Annotation alloc] initWithLocation:coordinate2];
+    [map addAnnotation: annotation2];  
+    
+    [testFontains addObject:annotation];
+    [testFontains addObject:annotation2];
     
     //get nearest fontains
     //for testing use because till now we can't read out of the plist
@@ -211,6 +233,14 @@
      [fontain insertObject:secondFontain atIndex:0];
      
      [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
+    
+    backButton = [[UIBarButtonItem alloc]
+                  initWithBarButtonSystemItem:UIBarButtonSystemItemReply	
+                  target:self
+                  action:@selector(backToMap:)];
+    
+    imprintHeadline.leftBarButtonItem = backButton;
+    imprintHeadline.hidesBackButton = NO;	
 }
 
 - (void)didReceiveMemoryWarning
@@ -289,6 +319,10 @@
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {    
     NSLog(@"complete");
+    
+    [map removeOverlay: currentRoute];
+    polylineOverLayerView = nil;
+    
     NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	responseData = nil;
     
@@ -312,10 +346,18 @@
         NSArray *points = [Route decodePolyline:encodedVal];
         [allPoints addObjectsFromArray:points];
     }
-    
     currentRoute = [Route createPolyline: allPoints];
+    
     MKMapRect currentMapRect = [Route createMapRect: allPoints];
     [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
+
+    //remove overlay
+    //[polylineOverLayerView setNeedsDisplay];
+
+    polylineWidth = 5.0f;
+    polylineColor = [UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.5f];
     [map addOverlay: currentRoute];
+    
+    NSLog(@"route erstellt");
 }
 @end
