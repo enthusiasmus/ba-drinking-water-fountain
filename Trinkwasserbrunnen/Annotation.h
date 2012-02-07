@@ -12,7 +12,9 @@
 @interface Annotation : NSObject <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
     UIImage *image;
+    NSString *title;
 }
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;
 - (id)initWithLocation:(CLLocationCoordinate2D)coord;
+- (id)initWithDictionary:(NSDictionary *) dict;
 @end

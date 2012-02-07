@@ -38,7 +38,7 @@
     //for markers
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
-    NSMutableArray *testFontains;
+    NSArray *fontains;
     
     //for route
     NSMutableData* responseData;

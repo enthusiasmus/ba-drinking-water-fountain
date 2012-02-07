@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Root</key>
+	<array>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 1</string>
+			<key>latitude</key>
+			<real>47.800242</real>
+			<key>longitude</key>
+			<real>13.046894</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 2</string>
+			<key>latitude</key>
+			<real>47.80949</real>
+			<key>longitude</key>
+			<real>13.05501</real>
+		</dict>
+	</array>
+</dict>
+</plist>

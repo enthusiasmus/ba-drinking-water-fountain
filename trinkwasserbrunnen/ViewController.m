@@ -210,18 +210,23 @@
     tabBar.delegate = self;
     userInput.delegate = self;
     
-    //create an annotation
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([@"47.800242" floatValue], [@"13.046894" floatValue]);       
-    Annotation *annotation = [[Annotation alloc] initWithLocation:coordinate];
-    [map addAnnotation: annotation];
-    
-    CLLocationCoordinate2D coordinate2 = CLLocationCoordinate2DMake([@"47.900242" floatValue], [@"13.146894" floatValue]);       
-    Annotation *annotation2 = [[Annotation alloc] initWithLocation:coordinate2];
-    [map addAnnotation: annotation2];  
-    
-    [testFontains addObject:annotation];
-    [testFontains addObject:annotation2];
-    
+    //read fontains from plist
+    NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fontains" ofType:@"plist"]];
+	self->fontains = [NSArray arrayWithArray:[tmp objectForKey:@"Root"]];
+	
+    if (fontains) {
+        for (NSDictionary *fontainDict in fontains) {
+            NSLog(@"annotation");
+
+            Annotation *annotation = [[Annotation alloc] initWithDictionary:fontainDict];
+            [map addAnnotation: annotation];
+        }
+    } else {
+        NSLog(@"Plist does not exist");
+    }
+
+
+
     //get nearest fontains
     //for testing use because till now we can't read out of the plist
     /*NSMutableArray* fontain;
