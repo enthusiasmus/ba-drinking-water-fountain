@@ -44,7 +44,8 @@
         {
             // If an existing pin view was not available, create one.
             pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotation"];
-            pinView.pinColor = MKPinAnnotationColorPurple;
+
+            pinView.image = [UIImage imageNamed:@"annotation.png"];
             pinView.animatesDrop = YES;
             pinView.canShowCallout = YES;
             
@@ -55,8 +56,9 @@
             pinView.rightCalloutAccessoryView = rightButton;
         }
         else
+        {
             pinView.annotation = annotation;
-        
+        }
         return pinView;
     }
     

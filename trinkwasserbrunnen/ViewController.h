@@ -34,11 +34,13 @@
     IBOutlet UIToolbar *mapTypeBar;
     IBOutlet UINavigationItem *imprintHeadline;
     IBOutlet UIBarButtonItem *backButton;
+    IBOutlet UIBarButtonItem *routeBackButton;
     
     //for markers
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
     NSArray *fontains;
+    NSArray *testFontains; // ToDo: wenn die Route funktioniert, bitte rausnehmen!
     
     //for route
     NSMutableData* responseData;

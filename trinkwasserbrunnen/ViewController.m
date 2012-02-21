@@ -15,7 +15,14 @@
 
 - (void)backToMap:(UIBarButtonItem *)myButton
 {
+    // hides imprint
     [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha: 0];}];
+    
+    // hides route and drink incl. keyboard
+    [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha: 0];}];
+    [userInput resignFirstResponder];
+    
+    // disable active state of actual tab bar item
     [tabBar setSelectedItem:nil];
 }
 
@@ -42,6 +49,7 @@
     
     if(buttonId == 1){
         searchHeadline.title = @"Trinken";
+        userInput.returnKeyType = UIReturnKeyGo;
     }
     else if(buttonId == 2){
         searchHeadline.title = @"Route";
@@ -239,13 +247,23 @@
      
      [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
     
+    routeBackButton = [[UIBarButtonItem alloc]
+                       initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                       target:self
+                       action:@selector(backToMap:)];
+    
+    searchHeadline.leftBarButtonItem = routeBackButton;
+    searchHeadline.hidesBackButton = NO;
+    
+    
     backButton = [[UIBarButtonItem alloc]
                   initWithBarButtonSystemItem:UIBarButtonSystemItemReply	
                   target:self
                   action:@selector(backToMap:)];
     
     imprintHeadline.leftBarButtonItem = backButton;
-    imprintHeadline.hidesBackButton = NO;	
+    imprintHeadline.hidesBackButton = NO;
+	
 }
 
 - (void)didReceiveMemoryWarning
