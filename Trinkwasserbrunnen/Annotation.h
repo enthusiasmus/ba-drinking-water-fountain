@@ -11,7 +11,6 @@
 
 @interface Annotation : NSObject <MKAnnotation> {
     CLLocationCoordinate2D coordinate;
-    UIImage *image;
     NSString *title;
 }
 @property (nonatomic, readwrite, assign) CLLocationCoordinate2D coordinate;

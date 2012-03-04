@@ -30,6 +30,8 @@
     //set alpha of searchField 0 when mapTypeBar is enabled
     if (searchField.alpha != 0)
         [UIToolbar animateWithDuration:0.3 animations:^{[searchField setAlpha: 0];}];
+    if (imprintView.alpha != 0)
+        [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha: 0];}];
     
     [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha:!mapTypeBar.alpha];}];
     if (mapTypeBar.alpha == 0) {
@@ -41,19 +43,45 @@
     //set alpha of mapTypeBar 0 when searching for the next fontaint
     if (mapTypeBar.alpha != 0)
         [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
+    if (imprintView.alpha != 0)
+        [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha: 0];}];
     
     [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha:1];}];
     
-    if (searchField.alpha == 0) {
+    if (searchField.alpha == 0)
         [tabBar setSelectedItem:nil];
-    }
     
     if(buttonId == 1){
         searchHeadline.title = @"Trinken";
         userInput.returnKeyType = UIReturnKeyGo;
     }
-    else if(buttonId == 2){
+    else if(buttonId == 2)
         searchHeadline.title = @"Route";
+    
+    userInput.text = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.latitude, currentLocation.longitude];
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{   
+    UITabBarItem *tabBarItem = (UITabBarItem *)item;
+    int tabBarIndex = (int)tabBarItem.tag;
+    switch(tabBarIndex){
+        case 0:
+            [self showUserLocation];
+            break;
+        case 1:
+            [self showSearchField : 1];
+            break;
+        case 2:
+            [self showSearchField : 2];
+            break;
+        case 3:
+            [self showMapTypeBar];
+            break;
+        case 4:           
+            [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha:!imprintView.alpha];}];
+            if(imprintView.alpha == 0)
+                [self->tabBar setSelectedItem:nil];
+            break;
     }
 }
 
@@ -66,27 +94,28 @@
     NSString* start;
     NSString* destination;
     CLLocationCoordinate2D destinationCoords;
-    NSString* comparePositionCurrent = [[NSString alloc] initWithFormat:@"%@,%@", currentLocation.latitude, currentLocation.longitude];
+    NSArray* checkTextType = [textField.text componentsSeparatedByString:@","];  
     
-    if(comparePositionCurrent == textField.text){
-        start = comparePositionCurrent;
-        destinationCoords = [Helper getNextAnnotation:currentLocation andPointsToCheck:fontains];
+    if([checkTextType count] == 2){
+        if(CLLocationCoordinate2DIsValid(CLLocationCoordinate2DMake([[checkTextType objectAtIndex:0] floatValue],[[checkTextType objectAtIndex:1] floatValue]))){
+            start = textField.text;
+            destinationCoords = [Helper getNextAnnotation:currentLocation andPointsToCheck:fontains];
+            destination = [[NSString alloc] initWithFormat:@"%f,%f", destinationCoords.latitude, destinationCoords.longitude];
+        
+            if(searchHeadline.title == @"Route"){
+                [self showRoute: start andDestination: destination andMode: @"walking"];
+            }
+            else{
+                [map removeOverlay: currentRoute];
+                polylineOverLayerView = nil;
+                [self zoomAndSetCenter:2 andLocation: destinationCoords];
+            }
+            NSLog(@"VALID!");
+            return YES;
+        }
     }
-    else{
-        start = textField.text;
-        destinationCoords = [Helper getNextAnnotation:[self getForwardGecoding:start] andPointsToCheck:fontains];
-        start = [NSString stringWithFormat:@"%@,AT", start];
-    }
-    destination = [[NSString alloc] initWithFormat:@"%f,%f", destinationCoords.latitude, destinationCoords.longitude];
-    
-    
-    if(searchHeadline.title == @"Route"){
-        [self showRoute: start andDestination: destination andMode: @"walking"];
-    }
-    else{
-        [self zoomAndSetCenter:16 andLocation: destinationCoords];
-    }
-
+    NSLog(@"NOT VALID!");
+    [self getForwardGecoding:textField.text andMode:1];
     return YES;
 }
 
@@ -125,6 +154,8 @@
         [UIToolbar animateWithDuration:0.3 animations:^{[mapTypeBar setAlpha: 0];}];
     if (searchField.alpha != 0)
         [UIToolbar animateWithDuration:0.3 animations:^{[searchField setAlpha: 0];}];
+    if (imprintView.alpha != 0)
+        [UIToolbar animateWithDuration:0.3 animations:^{[imprintView setAlpha: 0];}];
     
     if (!map.userLocation.location) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Ihre Position kann derzeit nicht gefunden werden!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
@@ -143,6 +174,7 @@
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(location, zoomLevel*METERS_PER_MILE, zoomLevel*METERS_PER_MILE);
     MKCoordinateRegion adjustedRegion = [map regionThatFits:viewRegion];
     [map setRegion:adjustedRegion animated:YES];
+    NSLog(@"%f", zoomLevel);
 }
 
 /*
@@ -154,32 +186,7 @@
         [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
         gotFirstUserLocation = true;
     }
-    userInput.text = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.latitude, currentLocation.longitude];
     currentLocation = map.userLocation.location.coordinate;
-}
-
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{   
-    UITabBarItem *tabBarItem = (UITabBarItem *)item;
-    int tabBarIndex = (int)tabBarItem.tag;
-    switch(tabBarIndex){
-        case 0:
-            [self showUserLocation];
-            break;
-        case 1:
-            [self showSearchField : 1];
-            break;
-        case 2:
-            [self showSearchField : 2];
-            break;
-        case 3:
-            [self showMapTypeBar];
-            break;
-        case 4:           
-            [UIView animateWithDuration:0.3 animations:^{[imprintView setAlpha:!imprintView.alpha];}];
-            if(imprintView.alpha == 0)
-                [self->tabBar setSelectedItem:nil];
-            break;
-    }
 }
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated{
@@ -350,9 +357,20 @@
 -(IBAction) showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode{
     responseData = [NSMutableData data];
     
+    NSArray* checkStartText = [start componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" ,"]];
+    NSString* convertedStart = [checkStartText objectAtIndex:0];
+    
+    if(([checkStartText count]) > 1){
+        for(int i=1; i<[checkStartText count]; i++){
+            convertedStart = [[NSString alloc] initWithFormat:@"%@%%20%@", convertedStart, [checkStartText objectAtIndex:i]];
+        }
+    }
+    else
+        convertedStart = start;
+    
     NSString *urlBeginn = @"https://maps.googleapis.com/maps/api/directions/json?origin=";
     NSString *urlEnd = @"&units=metric&sensor=true";
-    NSString *url = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", urlBeginn, start, @"&destination=", destination, @"&mode=", mode, urlEnd];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", urlBeginn, convertedStart, @"&destination=", destination, @"&mode=", mode, urlEnd];
     NSLog(@"%@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     (void) [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -410,7 +428,7 @@
     [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
 
     polylineWidth = 5.0f;
-    polylineColor = [UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.5f];
+    polylineColor = [UIColor colorWithRed:0.1f green:0.1f blue:1.0f alpha:0.5f];
     [map addOverlay: currentRoute];
     
     NSLog(@"route erstellt");
@@ -420,26 +438,42 @@
  * Helper functions for geocoding
  */
 
-- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location{
+- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location andMode:(int)mode{
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     __block CLPlacemark *placemark;
     [geocoder geocodeAddressString:location completionHandler:^(NSArray *placemarks, NSError *error) {
-        
+
         if (error != nil) {
             NSLog(@"%@", [error localizedDescription]);
-        } else {        
+        }
+        else{        
             if ([placemarks count] > 0) {
                 placemark = [placemarks objectAtIndex:0];
                 NSLog(@"Latitude: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.latitude] stringValue]);
                 NSLog(@"Longitued: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] stringValue]);
                 
+                if(mode == 1){
+                    CLLocationCoordinate2D destinationCoords = [Helper getNextAnnotation: CLLocationCoordinate2DMake([[NSNumber numberWithDouble:placemark.location.coordinate.latitude] floatValue], [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] floatValue]) andPointsToCheck:fontains];
+                    
+                    NSString* destination = [[NSString alloc] initWithFormat:@"%f,%f", destinationCoords.latitude, destinationCoords.longitude];
+                    NSString* start = [NSString stringWithFormat:@"%@,AT", location];
+                    
+                    if(searchHeadline.title == @"Route"){
+                        [self showRoute: start andDestination: destination andMode: @"walking"];
+                    }
+                    else{
+                        [map removeOverlay: currentRoute];
+                        polylineOverLayerView = nil;
+                        [self zoomAndSetCenter:2 andLocation: destinationCoords];
+                    }
+                }
             }       
         }
     }];
     return CLLocationCoordinate2DMake([[NSNumber numberWithDouble:placemark.location.coordinate.latitude] floatValue], [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] floatValue]);
 }
 
-- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location{
+- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location andMode:(int) mode{
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     CLLocation *locLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
     __block CLPlacemark *placemark;
@@ -460,4 +494,5 @@
     NSString *adress = [NSString stringWithFormat:@"%@ /%@ /%@ /%@", placemark.postalCode, placemark.locality, placemark.thoroughfare, placemark.subThoroughfare];
     return adress;
 }
+
 @end

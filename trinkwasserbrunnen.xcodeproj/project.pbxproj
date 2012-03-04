@@ -15,6 +15,7 @@
 		F26474CE14CA076200D392BE /* water.png in Resources */ = {isa = PBXBuildFile; fileRef = F26474CD14CA076200D392BE /* water.png */; };
 		F2755A9614CF01E200FE92D3 /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = F2755A9514CF01E200FE92D3 /* Helper.m */; };
 		F27DCD6B14C5FAED00EC38FF /* icon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F27DCD6A14C5FAED00EC38FF /* icon.jpg */; };
+		F2829EC815042F2E00B9B458 /* fhs_mmt.png in Resources */ = {isa = PBXBuildFile; fileRef = F2829EC715042F2E00B9B458 /* fhs_mmt.png */; };
 		F282C11814A1E7EB00E6E619 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11714A1E7EB00E6E619 /* UIKit.framework */; };
 		F282C11A14A1E7EB00E6E619 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11914A1E7EB00E6E619 /* Foundation.framework */; };
 		F282C11C14A1E7EB00E6E619 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F282C11B14A1E7EB00E6E619 /* CoreGraphics.framework */; };
@@ -53,6 +54,7 @@
 		F2755A9414CF01E200FE92D3 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		F2755A9514CF01E200FE92D3 /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		F27DCD6A14C5FAED00EC38FF /* icon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = icon.jpg; sourceTree = "<group>"; };
+		F2829EC715042F2E00B9B458 /* fhs_mmt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fhs_mmt.png; sourceTree = "<group>"; };
 		F282C11314A1E7EB00E6E619 /* Trinkwasserbrunnen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trinkwasserbrunnen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F282C11714A1E7EB00E6E619 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		F282C11914A1E7EB00E6E619 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +122,7 @@
 		F282C10814A1E7EB00E6E619 = {
 			isa = PBXGroup;
 			children = (
+				F2829EC715042F2E00B9B458 /* fhs_mmt.png */,
 				F2BD5AF614FE90D50064E7D4 /* info.png */,
 				F27DCD6A14C5FAED00EC38FF /* icon.jpg */,
 				F26474C714CA06E200D392BE /* location.png */,
@@ -279,6 +282,7 @@
 				F26474CE14CA076200D392BE /* water.png in Resources */,
 				F28AA4EF14E127B4003F9EFD /* fontains.plist in Resources */,
 				F2BD5AF714FE90D50064E7D4 /* info.png in Resources */,
+				F2829EC815042F2E00B9B458 /* fhs_mmt.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -54,7 +54,7 @@
 + (CLLocationCoordinate2D)getNextAnnotation: (CLLocationCoordinate2D)startLocation andPointsToCheck: (NSArray*) fontains{
     CLLocation *startingLocation = [[CLLocation alloc] initWithLatitude:startLocation.latitude longitude:startLocation.longitude]; 
     
-    NSLog(@"all fontains: %@", fontains);
+    //NSLog(@"all fontains: %@", fontains);
     
     if(!fontains || !fontains.count)
         return CLLocationCoordinate2DMake(0, 0);
@@ -65,7 +65,7 @@
             nearestFontain = [fontains objectAtIndex:x];
     }
     
-    NSLog(@"nearest fontain: %@", nearestFontain);
+    //NSLog(@"nearest fontain: %@", nearestFontain);
     
     return CLLocationCoordinate2DMake(nearestFontain.coordinate.latitude, nearestFontain.coordinate.longitude);
 }
