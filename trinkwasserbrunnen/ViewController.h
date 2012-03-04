@@ -24,6 +24,7 @@
     IBOutlet UIBarButtonItem *mapTypeStandard;
     IBOutlet UIBarButtonItem *mapTypeSatellite;
     IBOutlet UIBarButtonItem *mapTypeHybrid;
+    CLLocationCoordinate2D currentLocation;
     
     //for screen
     IBOutlet UIView *searchField;
@@ -39,8 +40,8 @@
     //for markers
     NSMutableDictionary* allData;
     NSMutableDictionary* nameData;
-    NSArray *fontains;
-    NSArray *testFontains; // ToDo: wenn die Route funktioniert, bitte rausnehmen!
+    NSMutableArray *fontains;
+    NSMutableArray *fontainsPlist;
     
     //for route
     NSMutableData* responseData;
@@ -57,4 +58,6 @@
 -(void)zoomAndSetCenter: (float)zoomLevel andLocation: (CLLocationCoordinate2D) location;
 -(void)setActiveMapButton : (UIBarButtonItem *) activeButton andInactiveButton1 : (UIBarButtonItem *) inactiveButton1 andInactiveButton2 : (UIBarButtonItem *) inactiveButton2;
 -(IBAction)showRoute: (NSString*) start andDestination: (NSString*) destination andMode: (NSString*) mode;
+-(CLLocationCoordinate2D)getForwardGecoding: (NSString*) location;
+-(NSString*)getReverseGecoding: (CLLocationCoordinate2D) location;
 @end

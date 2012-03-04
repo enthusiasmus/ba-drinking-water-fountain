@@ -6,19 +6,83 @@
 	<array>
 		<dict>
 			<key>name</key>
+			<string>Brunnen 10</string>
+			<key>latitude</key>
+			<real>47.802586</real>
+			<key>longitude</key>
+			<real>13.054032</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 9</string>
+			<key>latitude</key>
+			<real>47.783037</real>
+			<key>longitude</key>
+			<real>13.094662</real>
+		</dict>
+		<dict>
+			<key>name</key>
 			<string>Brunnen 1</string>
 			<key>latitude</key>
-			<real>37.7749295</real>
+			<real>47.805347</real>
 			<key>longitude</key>
-			<real>-122.4194155</real>
+			<real>13.03968</real>
 		</dict>
 		<dict>
 			<key>name</key>
 			<string>Brunnen 2</string>
 			<key>latitude</key>
-			<real>47.80949</real>
+			<real>47.799768</real>
 			<key>longitude</key>
-			<real>13.05501</real>
+			<real>13.037015</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 3</string>
+			<key>latitude</key>
+			<real>47.796305</real>
+			<key>longitude</key>
+			<real>13.053257</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 4</string>
+			<key>latitude</key>
+			<real>47.760951</real>
+			<key>longitude</key>
+			<real>13.064391</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 5</string>
+			<key>latitude</key>
+			<real>47.778187</real>
+			<key>longitude</key>
+			<real>13.064997</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 6</string>
+			<key>latitude</key>
+			<real>47.763285</real>
+			<key>longitude</key>
+			<real>13.064567</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 7</string>
+			<key>latitude</key>
+			<real>47.795862</real>
+			<key>longitude</key>
+			<real>13.046896</real>
+		</dict>
+		<dict>
+			<key>name</key>
+			<string>Brunnen 8</string>
+			<key>latitude</key>
+			<real>47.798325</real>
+			<key>longitude</key>
+			<real>13.048308</real>
 		</dict>
 	</array>
 </dict>

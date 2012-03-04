@@ -58,7 +58,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UserLocation" clearsOnBeginEditing="YES" minimumFontSize="13" clearButtonMode="always" id="e9a-AF-3H0">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" highlighted="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adresse/Koordinaten" minimumFontSize="13" clearButtonMode="always" id="e9a-AF-3H0">
                                         <rect key="frame" x="20" y="45" width="280" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -70,7 +70,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <items>
-                                            <navigationItem title="SearchInput" id="idM-8w-lBB">
+                                            <navigationItem title="Modul-Typ" id="idM-8w-lBB">
                                                 <barButtonItem key="backBarButtonItem" title="Abbrechen" id="pGX-nD-gmP"/>
                                             </navigationItem>
                                         </items>
@@ -82,7 +82,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="TW0-sm-zND">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.0" contentMode="scaleToFill" editable="NO" id="TW0-sm-zND">
                                         <rect key="frame" x="0.0" y="44" width="320" height="367"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,7 +90,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <navigationBar contentMode="scaleToFill" id="XfR-uH-8ij">
+                                    <navigationBar alpha="0.0" contentMode="scaleToFill" id="XfR-uH-8ij">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -131,6 +131,31 @@
         <image name="route.png" width="30" height="30"/>
         <image name="water.png" width="30" height="30"/>
     </resources>
+    <classes>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeMapType:"/>
+                <relationship kind="action" name="showMapTypeBar"/>
+                <relationship kind="action" name="showRoute:andDestination:" candidateClass="NSString"/>
+                <relationship kind="action" name="showSearchField:"/>
+                <relationship kind="action" name="showUserLocation"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="imprintHeadline" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="imprintView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="map" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapTypeBar" candidateClass="UIToolbar"/>
+                <relationship kind="outlet" name="mapTypeHybrid" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeSatellite" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="mapTypeStandard" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="routeBackButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="searchField" candidateClass="UIView"/>
+                <relationship kind="outlet" name="searchHeadline" candidateClass="UINavigationItem"/>
+                <relationship kind="outlet" name="tabBar" candidateClass="UITabBar"/>
+                <relationship kind="outlet" name="userInput" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

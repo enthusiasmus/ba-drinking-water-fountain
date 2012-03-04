@@ -38,7 +38,7 @@
 		F288525F14CC4CC800C5A0FC /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = F288525214CC4CC800C5A0FC /* SBJsonUTF8Stream.m */; };
 		F288526014CC4CC800C5A0FC /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = F288525414CC4CC800C5A0FC /* SBJsonWriter.m */; };
 		F28AA4EF14E127B4003F9EFD /* fontains.plist in Resources */ = {isa = PBXBuildFile; fileRef = F28AA4EE14E127B4003F9EFD /* fontains.plist */; };
-		F294EE6D14FB628600914805 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = F294EE6C14FB628600914805 /* info.png */; };
+		F2BD5AF714FE90D50064E7D4 /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = F2BD5AF614FE90D50064E7D4 /* info.png */; };
 		F2BE345914CEC3FE00775CA2 /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE345814CEC3FE00775CA2 /* Route.m */; };
 		F2BE345D14CEC6BF00775CA2 /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = F2BE345C14CEC6BF00775CA2 /* Annotation.m */; };
 /* End PBXBuildFile section */
@@ -94,7 +94,7 @@
 		F288525314CC4CC800C5A0FC /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		F288525414CC4CC800C5A0FC /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		F28AA4EE14E127B4003F9EFD /* fontains.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fontains.plist; sourceTree = "<group>"; };
-		F294EE6C14FB628600914805 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = info.png; path = ../../../Dropbox/info.png; sourceTree = "<group>"; };
+		F2BD5AF614FE90D50064E7D4 /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		F2BE345714CEC3FE00775CA2 /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		F2BE345814CEC3FE00775CA2 /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
 		F2BE345B14CEC6BF00775CA2 /* Annotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Annotation.h; sourceTree = "<group>"; };
@@ -120,11 +120,11 @@
 		F282C10814A1E7EB00E6E619 = {
 			isa = PBXGroup;
 			children = (
+				F2BD5AF614FE90D50064E7D4 /* info.png */,
 				F27DCD6A14C5FAED00EC38FF /* icon.jpg */,
 				F26474C714CA06E200D392BE /* location.png */,
 				F26474CB14CA070000D392BE /* map.png */,
 				F26474C414CA06D600D392BE /* route.png */,
-				F294EE6C14FB628600914805 /* info.png */,
 				F26474CD14CA076200D392BE /* water.png */,
 				F26474C914CA06F200D392BE /* map-marker.png */,
 				F2480F9F14CC7B5C00882065 /* CoreLocation.framework */,
@@ -278,7 +278,7 @@
 				F26474CC14CA070000D392BE /* map.png in Resources */,
 				F26474CE14CA076200D392BE /* water.png in Resources */,
 				F28AA4EF14E127B4003F9EFD /* fontains.plist in Resources */,
-				F294EE6D14FB628600914805 /* info.png in Resources */,
+				F2BD5AF714FE90D50064E7D4 /* info.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

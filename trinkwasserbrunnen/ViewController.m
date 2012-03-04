@@ -36,6 +36,7 @@
         [tabBar setSelectedItem:nil];
     }
 }
+
 - (IBAction)showSearchField:(int)buttonId {     
     //set alpha of mapTypeBar 0 when searching for the next fontaint
     if (mapTypeBar.alpha != 0)
@@ -54,33 +55,38 @@
     else if(buttonId == 2){
         searchHeadline.title = @"Route";
     }
-    
-    if(buttonId == 1 || buttonId == 2)
-        if(map.userLocation.location)
-            userInput.text = @"User Location verwenden";
 }
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     // hide keyboard and search field after pressing the "route" button
     [textField resignFirstResponder];
     [UIView animateWithDuration:0.3 animations:^{[searchField setAlpha:0];}];
     
-    // TODO: Funktionen, die Trinkwasserbrunnen bzw. Route anzeigen, hier aufrufen!
+    NSString* start;
+    NSString* destination;
+    CLLocationCoordinate2D destinationCoords;
+    NSString* comparePositionCurrent = [[NSString alloc] initWithFormat:@"%@,%@", currentLocation.latitude, currentLocation.longitude];
     
-    NSLog(@"getting route");
-    
-    if(textField.text == @"User Location verwenden"){
-        NSString *currentAdress = [Helper getReverseGecoding: CLLocationCoordinate2DMake(map.userLocation.location.coordinate.latitude, map.userLocation.location.coordinate.longitude)];
-        [self showRoute: currentAdress andDestination: userInput.text andMode: @"walking"];
+    if(comparePositionCurrent == textField.text){
+        start = comparePositionCurrent;
+        destinationCoords = [Helper getNextAnnotation:currentLocation andPointsToCheck:fontains];
     }
+    else{
+        start = textField.text;
+        destinationCoords = [Helper getNextAnnotation:[self getForwardGecoding:start] andPointsToCheck:fontains];
+        start = [NSString stringWithFormat:@"%@,AT", start];
+    }
+    destination = [[NSString alloc] initWithFormat:@"%f,%f", destinationCoords.latitude, destinationCoords.longitude];
     
-    //when user location is available and we want the route to the next fontain
-    CLLocationCoordinate2D nextFontain = [Helper getNextAnnotation: map.userLocation.location.coordinate andPointsToCheck: testFontains];
-    NSString* destination = [Helper getReverseGecoding: nextFontain];
-    NSString* start = [Helper getReverseGecoding: map.userLocation.location.coordinate];
     
-    [self showRoute: start andDestination: destination andMode: @"walking"];
-    
+    if(searchHeadline.title == @"Route"){
+        [self showRoute: start andDestination: destination andMode: @"walking"];
+    }
+    else{
+        [self zoomAndSetCenter:16 andLocation: destinationCoords];
+    }
+
     return YES;
 }
 
@@ -148,6 +154,8 @@
         [self zoomAndSetCenter: 3 andLocation: map.userLocation.location.coordinate];
         gotFirstUserLocation = true;
     }
+    userInput.text = [[NSString alloc] initWithFormat:@"%f,%f", currentLocation.latitude, currentLocation.longitude];
+    currentLocation = map.userLocation.location.coordinate;
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item{   
@@ -196,6 +204,41 @@
     
     return overlayView;
 }
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{    
+    // If it's the user location, just return nil.
+    if ([annotation isKindOfClass:[MKUserLocation class]])
+        return nil;
+    
+    // Handle any custom annotations.
+    if ([annotation isKindOfClass:[Annotation class]])
+    {
+        // Try to dequeue an existing pin view first.
+        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
+        
+        if (!pinView)
+        {
+            // If an existing pin view was not available, create one.
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation"];
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+            
+            // Add a detail disclosure button to the callout
+            UIButton* rightButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:self action:@selector(myShowDetailsMethod:)
+                  forControlEvents:UIControlEventTouchUpInside];
+            pinView.rightCalloutAccessoryView = rightButton;
+        }
+        else
+        {
+            pinView.annotation = annotation;
+        }
+        
+        pinView.image = [UIImage imageNamed:@"map-marker.png"];
+        return pinView;
+    }    
+    return nil;
+}
 
 /*
  * Project auto added functions
@@ -220,32 +263,24 @@
     
     //read fontains from plist
     NSDictionary *tmp = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fontains" ofType:@"plist"]];
-	self->fontains = [NSArray arrayWithArray:[tmp objectForKey:@"Root"]];
+	self->fontainsPlist = [NSArray arrayWithArray:[tmp objectForKey:@"Root"]];
 	
-    if (fontains) {
-        for (NSDictionary *fontainDict in fontains) {
-            NSLog(@"annotation");
-
+    if (fontainsPlist) {
+        int i=0;
+        fontains = [[NSMutableArray alloc] init];
+        for (NSDictionary *fontainDict in fontainsPlist) {
+            NSLog(@"annotation%d",i);
+            i++;
+            
             Annotation *annotation = [[Annotation alloc] initWithDictionary:fontainDict];
             [map addAnnotation: annotation];
+            
+            CLLocation *addingFontain = [[CLLocation alloc] initWithLatitude: annotation.coordinate.latitude longitude: annotation.coordinate.longitude];
+            [fontains addObject: addingFontain];
         }
     } else {
-        NSLog(@"Plist does not exist");
+        NSLog(@"Fontains Plist does not exist");
     }
-
-
-
-    //get nearest fontains
-    //for testing use because till now we can't read out of the plist
-    /*NSMutableArray* fontain;
-     
-     CLLocation *firstFontain = [[CLLocation alloc] initWithLatitude:[@"47.80474" floatValue] longitude:[@"13.05705" floatValue]]; 
-     CLLocation *secondFontain = [[CLLocation alloc] initWithLatitude:[@"47.787672" floatValue] longitude:[@"13.045549" floatValue]]; 
-     
-     [fontain addObject:firstFontain];
-     [fontain insertObject:secondFontain atIndex:0];
-     
-     [self getNextAnnotation: startLocation andPointsToCheck: fontain];*/
     
     routeBackButton = [[UIBarButtonItem alloc]
                        initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
@@ -263,7 +298,6 @@
     
     imprintHeadline.leftBarButtonItem = backButton;
     imprintHeadline.hidesBackButton = NO;
-	
 }
 
 - (void)didReceiveMemoryWarning
@@ -318,10 +352,11 @@
     
     NSString *urlBeginn = @"https://maps.googleapis.com/maps/api/directions/json?origin=";
     NSString *urlEnd = @"&units=metric&sensor=true";
-    NSString *url = [NSString stringWithFormat:@"%@/%@/%@/%@/%@/%@/%@", urlBeginn, start, @",AT&destination=", destination, @",AT&mode=", mode, urlEnd];
+    NSString *url = [NSString stringWithFormat:@"%@%@%@%@%@%@%@", urlBeginn, start, @"&destination=", destination, @"&mode=", mode, urlEnd];
+    NSLog(@"%@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     (void) [[NSURLConnection alloc] initWithRequest:request delegate:self];
-    NSLog(@"showROUTE");
+    NSLog(@"finished showROUTE");
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -374,13 +409,55 @@
     MKMapRect currentMapRect = [Route createMapRect: allPoints];
     [map setRegion:MKCoordinateRegionForMapRect(currentMapRect) animated:YES];
 
-    //remove overlay
-    //[polylineOverLayerView setNeedsDisplay];
-
     polylineWidth = 5.0f;
     polylineColor = [UIColor colorWithRed:0.0f green:0.0f blue:1.0f alpha:0.5f];
     [map addOverlay: currentRoute];
     
     NSLog(@"route erstellt");
+}
+
+/*
+ * Helper functions for geocoding
+ */
+
+- (CLLocationCoordinate2D)getForwardGecoding: (NSString*) location{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    __block CLPlacemark *placemark;
+    [geocoder geocodeAddressString:location completionHandler:^(NSArray *placemarks, NSError *error) {
+        
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {        
+            if ([placemarks count] > 0) {
+                placemark = [placemarks objectAtIndex:0];
+                NSLog(@"Latitude: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.latitude] stringValue]);
+                NSLog(@"Longitued: %@", [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] stringValue]);
+                
+            }       
+        }
+    }];
+    return CLLocationCoordinate2DMake([[NSNumber numberWithDouble:placemark.location.coordinate.latitude] floatValue], [[NSNumber numberWithDouble:placemark.location.coordinate.longitude] floatValue]);
+}
+
+- (NSString*)getReverseGecoding: (CLLocationCoordinate2D) location{
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    CLLocation *locLocation = [[CLLocation alloc] initWithLatitude:location.latitude longitude:location.longitude];
+    __block CLPlacemark *placemark;
+    
+    [geocoder reverseGeocodeLocation:locLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        if (error != nil) {
+            NSLog(@"%@", [error localizedDescription]);
+        } else {
+            if ([placemarks count] > 0) {
+                placemark = [placemarks objectAtIndex:0];
+                NSLog(@"%@", placemark.postalCode);
+                NSLog(@"%@", placemark.locality);
+                NSLog(@"%@", placemark.thoroughfare);
+                NSLog(@"%@", placemark.subThoroughfare);
+            }      
+        }
+    }];
+    NSString *adress = [NSString stringWithFormat:@"%@ /%@ /%@ /%@", placemark.postalCode, placemark.locality, placemark.thoroughfare, placemark.subThoroughfare];
+    return adress;
 }
 @end

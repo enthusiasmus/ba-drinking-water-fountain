@@ -27,41 +27,4 @@
     }
     return self;
 }
-
-- (MKAnnotationView *)map:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
-{
-    // If it's the user location, just return nil.
-    if ([annotation isKindOfClass:[MKUserLocation class]])
-        return nil;
-    
-    // Handle any custom annotations.
-    if ([annotation isKindOfClass:[Annotation class]])
-    {
-        // Try to dequeue an existing pin view first.
-        MKPinAnnotationView *pinView = (MKPinAnnotationView*)[map dequeueReusableAnnotationViewWithIdentifier:@"CustomPinAnnotationView"];
-        
-        if (!pinView)
-        {
-            // If an existing pin view was not available, create one.
-            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"CustomPinAnnotation"];
-
-            pinView.image = [UIImage imageNamed:@"annotation.png"];
-            pinView.animatesDrop = YES;
-            pinView.canShowCallout = YES;
-            
-            // Add a detail disclosure button to the callout
-            UIButton* rightButton = [UIButton buttonWithType: UIButtonTypeDetailDisclosure];
-            [rightButton addTarget:self action:@selector(myShowDetailsMethod:)
-                  forControlEvents:UIControlEventTouchUpInside];
-            pinView.rightCalloutAccessoryView = rightButton;
-        }
-        else
-        {
-            pinView.annotation = annotation;
-        }
-        return pinView;
-    }
-    
-    return nil;
-}
 @end
